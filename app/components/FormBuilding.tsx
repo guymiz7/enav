@@ -14,7 +14,7 @@ export function FormBuilding({ step, complete }: { step: number; complete: boole
     <svg
       viewBox="0 0 140 240"
       preserveAspectRatio="xMidYEnd meet"
-      className="h-[26svh] min-h-[200px] max-h-[280px] w-auto"
+      className="h-[22svh] min-h-[170px] max-h-[210px] w-auto"
       fill="none"
     >
       {/* foundation — always visible */}

@@ -143,10 +143,10 @@ export function Questions({
             <AnimatePresence mode="wait">
               <motion.div
                 key={q.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-1 flex-col"
               >
                 <div className="mb-1.5 text-[10px] font-light uppercase tracking-[0.32em] text-white/45">
