@@ -9,6 +9,14 @@ import { Form, type LeadData } from "./Form";
 import { Success } from "./Success";
 import { Footer } from "./Footer";
 
+function generateSlot() {
+  const minsFromNow = 14 + Math.floor(Math.random() * 9); // 14–22 min
+  const d = new Date(Date.now() + minsFromNow * 60_000);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
 export function Page() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
@@ -17,13 +25,15 @@ export function Page() {
     cities: [],
   });
   const [quizDone, setQuizDone] = useState(false);
-  const [success, setSuccess] = useState<{ position: number; name: string } | null>(
-    null
-  );
+  const [slotTime, setSlotTime] = useState<string | null>(null);
+  const [success, setSuccess] =
+    useState<{ position: number; name: string } | null>(null);
+
   const formRef = useRef<HTMLDivElement>(null);
 
   const onQuizComplete = () => {
     setQuizDone(true);
+    setSlotTime(generateSlot());
   };
 
   useEffect(() => {
@@ -34,7 +44,7 @@ export function Page() {
             behavior: "smooth",
             block: "start",
           }),
-        120
+        140
       );
       return () => clearTimeout(t);
     }
@@ -55,17 +65,31 @@ export function Page() {
           setStep={setStep}
           answers={answers}
           setAnswers={setAnswers}
-          complete={quizDone}
           onComplete={onQuizComplete}
         />
         <div ref={formRef}>
           <AnimatePresence>
-            {quizDone && <Form onSubmit={onSubmit} />}
+            {quizDone && slotTime && (
+              <Form
+                slotTime={slotTime}
+                selectedCities={answers.cities.length}
+                onSubmit={onSubmit}
+              />
+            )}
           </AnimatePresence>
         </div>
         <Footer />
       </main>
-      {success && <Success position={success.position} name={success.name} />}
+      {success && slotTime && (
+        <Success
+          position={success.position}
+          name={success.name}
+          slotTime={slotTime}
+          intent={answers.intent}
+          budget={answers.budget}
+          cities={answers.cities}
+        />
+      )}
     </>
   );
 }

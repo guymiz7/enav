@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useMotionValue, animate, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export type LeadData = {
   name: string;
@@ -10,7 +10,15 @@ export type LeadData = {
   consent: boolean;
 };
 
-export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
+export function Form({
+  slotTime,
+  selectedCities,
+  onSubmit,
+}: {
+  slotTime: string;
+  selectedCities: number;
+  onSubmit: (d: LeadData) => void;
+}) {
   const [data, setData] = useState<LeadData>({
     name: "",
     phone: "",
@@ -21,6 +29,17 @@ export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
   const [errors, setErrors] = useState<Partial<Record<keyof LeadData, string>>>(
     {}
   );
+
+  // depleting urgency bar — slowly drains from 100% to 8% over ~6 minutes
+  const remaining = useMotionValue(1);
+  const widthPct = useTransform(remaining, (v) => `${v * 100}%`);
+  useEffect(() => {
+    const controls = animate(remaining, 0.08, {
+      duration: 360,
+      ease: "linear",
+    });
+    return controls.stop;
+  }, [remaining]);
 
   const validate = () => {
     const e: Partial<Record<keyof LeadData, string>> = {};
@@ -44,22 +63,53 @@ export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="px-5 pb-16 pt-4"
+      className="px-5 pb-20 pt-12"
     >
       <div className="mx-auto max-w-[440px]">
-        <div className="mb-10 text-center">
-          <p className="text-[11px] font-light tracking-wide text-white/45">
-            הבניין שלך — מוכן
+        {/* TIME SLOT ANCHOR — the FOMO centerpiece (Tesla "earliest delivery" pattern) */}
+        <div className="mb-12 text-center">
+          <p className="text-[10px] uppercase tracking-[0.32em] text-white/45">
+            המקום שלך נשמר
           </p>
-          <h3 className="mt-3 text-[clamp(1.7rem,6.8vw,2.1rem)] font-light leading-tight tracking-[-0.015em]">
-            השאירו פרטים
-            <br />
-            <span className="font-black">ועלו לדירה.</span>
-          </h3>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-4 text-[clamp(4rem,18vw,5.6rem)] font-light leading-none tabular tracking-[-0.04em]"
+          >
+            {slotTime}
+          </motion.p>
+          <p className="mt-3 text-[12px] font-light text-white/55">
+            הקצאה אישית · השלימו פרטים תוך הדקות הקרובות
+          </p>
+
+          {/* depleting urgency bar */}
+          <div className="mx-auto mt-7 h-px w-full max-w-[260px] overflow-hidden bg-white/15">
+            <motion.div
+              className="h-full bg-white"
+              style={{ width: widthPct }}
+            />
+          </div>
         </div>
+
+        {/* summary chip */}
+        {selectedCities > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="mb-10 flex items-center justify-center gap-1.5 text-[11px] font-light text-white/55"
+          >
+            <span className="h-1 w-1 rounded-full bg-white/55" />
+            <span>
+              <span className="tabular text-white">{selectedCities}</span> ערים
+              נשמרו בהעדפות
+            </span>
+          </motion.div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-1">
           <Field label="שם מלא" required error={errors.name}>
@@ -100,7 +150,7 @@ export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
             />
           </Field>
 
-          <label className="mt-8 flex items-start gap-3 text-right text-[12px] font-light leading-[1.6] text-white/65">
+          <label className="mt-10 flex items-start gap-3 text-right text-[12px] font-light leading-[1.6] text-white/65">
             <input
               type="checkbox"
               checked={data.consent}
@@ -120,10 +170,16 @@ export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
           <button
             type="submit"
             disabled={submitting}
-            className="!mt-10 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-black transition active:bg-white/90 disabled:opacity-60"
+            className="group relative !mt-10 w-full overflow-hidden border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-black transition active:bg-white/90 disabled:opacity-60"
           >
-            {submitting ? "שולח..." : "הצטרפ/י לתור"}
+            <span className="relative">
+              {submitting ? "מאשר..." : `אשרו את המקום · ${slotTime}`}
+            </span>
           </button>
+
+          <p className="mt-4 text-center text-[10px] font-light tracking-wide text-white/30">
+            ביטול אפשרי עד שעה לפני מועד הצילום
+          </p>
         </form>
       </div>
     </motion.section>
