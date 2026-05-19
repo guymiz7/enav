@@ -27,13 +27,13 @@ export function Hero() {
       {/* legibility gradient at the bottom for the headline */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-black via-black/65 to-transparent" />
 
-      {/* huge overlay headline */}
-      <div className="absolute inset-x-0 bottom-0 px-5 pb-14 sm:pb-20">
+      {/* headline overlay — Assistant light, right-aligned */}
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-14 sm:pb-20">
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-[480px] text-center text-[clamp(2.6rem,13vw,4.2rem)] font-black leading-[0.94] tracking-[-0.028em] text-balance"
+          className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.5rem,11.5vw,3.6rem)] font-extralight leading-[1.08] tracking-[-0.025em] text-balance"
         >
           אתם מרחק נגיעה
           <br />

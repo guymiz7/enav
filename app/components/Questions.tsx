@@ -123,29 +123,8 @@ export function Questions({
           />
         </AnimatePresence>
 
-        {/* top + bottom gradients for legibility */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/65 to-transparent" />
+        {/* bottom gradient only — no text overlays */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/70 to-transparent" />
-
-        {/* floor label overlay */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`label-${q.id}`}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="absolute inset-x-0 top-0 flex items-center justify-between px-5 pt-20"
-          >
-            <span className="text-[10px] uppercase tracking-[0.32em] text-white/80">
-              קומה {step}{" "}
-              <span className="text-white/40">/ {total}</span>
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.32em] text-white/80">
-              {q.floorLabel}
-            </span>
-          </motion.div>
-        </AnimatePresence>
 
         {/* progress bars at bottom of image */}
         <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 px-5 pb-6">

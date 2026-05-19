@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Heebo } from "next/font/google";
+import { Heebo, Assistant } from "next/font/google";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -7,6 +7,13 @@ const heebo = Heebo({
   variable: "--font-heebo",
   display: "swap",
   weight: ["200", "300", "400", "500", "700", "900"],
+});
+
+const assistant = Assistant({
+  subsets: ["hebrew", "latin"],
+  variable: "--font-assistant",
+  display: "swap",
+  weight: ["200", "300", "400", "500", "700"],
 });
 
 export const viewport: Viewport = {
@@ -27,7 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="he" dir="rtl" className={heebo.variable}>
+    <html
+      lang="he"
+      dir="rtl"
+      className={`${heebo.variable} ${assistant.variable}`}
+    >
       <body className="min-h-screen bg-black font-sans text-white">{children}</body>
     </html>
   );

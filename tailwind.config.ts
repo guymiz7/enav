@@ -9,6 +9,13 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-heebo)", "-apple-system", "system-ui", "sans-serif"],
+        display: [
+          "var(--font-assistant)",
+          "var(--font-heebo)",
+          "-apple-system",
+          "system-ui",
+          "sans-serif",
+        ],
       },
     },
   },
