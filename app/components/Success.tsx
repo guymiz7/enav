@@ -49,7 +49,6 @@ export function Success({
       transition={{ duration: 0.55 }}
       className="fixed inset-0 z-[60] overflow-y-auto bg-black"
     >
-      {/* faint background image */}
       <div className="pointer-events-none absolute inset-0">
         <img
           src={asset("/media/tkuma-ks-ap-pool-c01_0-6-scaled.jpg")}
@@ -59,8 +58,7 @@ export function Success({
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/85 to-black" />
       </div>
 
-      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-16">
-        {/* completed building */}
+      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-14">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,39 +74,23 @@ export function Success({
           transition={{ duration: 0.6, delay: 0.45 }}
           className="text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
         >
-          BOOKING CONFIRMED · ENAV STUDIO
+          המקום שלך אושר
         </motion.p>
 
-        {/* slot time anchor */}
         <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 text-center font-display text-[clamp(4.2rem,19vw,5.8rem)] font-extralight leading-none tabular tracking-[-0.045em]"
+          className="mt-3 text-center font-display text-[clamp(4.2rem,19vw,5.8rem)] font-extralight leading-none tabular tracking-[-0.045em]"
         >
           {slotTime}
         </motion.p>
 
-        {/* reward statement, repeated */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.75 }}
-          className="mx-auto mt-5 max-w-[260px] border-y border-white/15 py-3 text-center"
-        >
-          <p className="text-[10px] font-light uppercase tracking-[0.28em] text-white/45">
-            YOUR REWARD
-          </p>
-          <p className="mt-1.5 text-[13px] font-light leading-[1.5] text-white">
-            תמונה אישית על הבטון
-          </p>
-        </motion.div>
-
         <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.95 }}
-          className="mt-7 text-center font-display text-[1.5rem] font-extralight leading-tight"
+          transition={{ duration: 0.7, delay: 0.85 }}
+          className="mt-8 text-center font-display text-[1.5rem] font-extralight leading-tight"
         >
           {first ? `${first}, ` : ""}תורך מובטח.
         </motion.h2>
@@ -116,17 +98,16 @@ export function Success({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
+          transition={{ duration: 0.7, delay: 1.05 }}
           className="mx-auto mt-3 max-w-[30ch] text-center text-[13px] font-light leading-[1.7] text-white/55"
         >
           נשלח אלייך SMS דקות לפני המועד.
         </motion.p>
 
-        {/* configuration summary */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.25 }}
+          transition={{ duration: 0.7, delay: 1.2 }}
           className="mx-auto mt-10 w-full max-w-[340px]"
         >
           <div className="mb-3 text-center text-[10px] font-light uppercase tracking-[0.32em] text-white/40">

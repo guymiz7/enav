@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Topbar } from "./Topbar";
 import { Hero } from "./Hero";
+import { Intro } from "./Intro";
 import { Questions, type Answers } from "./Questions";
 import { Form, type LeadData } from "./Form";
 import { Success } from "./Success";
-import { Footer } from "./Footer";
 
 function generateSlot() {
-  const minsFromNow = 14 + Math.floor(Math.random() * 9); // 14–22 min
+  const minsFromNow = 14 + Math.floor(Math.random() * 9);
   const d = new Date(Date.now() + minsFromNow * 60_000);
   const hh = String(d.getHours()).padStart(2, "0");
   const mm = String(d.getMinutes()).padStart(2, "0");
@@ -29,26 +29,30 @@ export function Page() {
   const [success, setSuccess] =
     useState<{ position: number; name: string } | null>(null);
 
-  const formRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLElement>(null);
 
   const onQuizComplete = () => {
     setQuizDone(true);
     setSlotTime(generateSlot());
   };
 
+  /* whenever the quiz finishes, snap to the form section */
   useEffect(() => {
     if (quizDone) {
-      const t = setTimeout(
-        () =>
-          formRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          }),
-        140
-      );
+      const t = setTimeout(() => {
+        const formEl = document.getElementById("form");
+        formEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 180);
       return () => clearTimeout(t);
     }
   }, [quizDone]);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   const onSubmit = (d: LeadData) => {
     const position = 4 + Math.floor(Math.random() * 6);
@@ -58,8 +62,9 @@ export function Page() {
   return (
     <>
       <Topbar />
-      <main>
+      <main ref={scrollerRef} className="snap-scroll">
         <Hero />
+        <Intro onNext={() => scrollTo("quiz")} />
         <Questions
           step={step}
           setStep={setStep}
@@ -67,18 +72,16 @@ export function Page() {
           setAnswers={setAnswers}
           onComplete={onQuizComplete}
         />
-        <div ref={formRef}>
-          <AnimatePresence>
-            {quizDone && slotTime && (
-              <Form
-                slotTime={slotTime}
-                selectedCities={answers.cities.length}
-                onSubmit={onSubmit}
-              />
-            )}
-          </AnimatePresence>
-        </div>
-        <Footer />
+        <AnimatePresence>
+          {quizDone && slotTime && (
+            <Form
+              key="form"
+              slotTime={slotTime}
+              selectedCities={answers.cities.length}
+              onSubmit={onSubmit}
+            />
+          )}
+        </AnimatePresence>
       </main>
       {success && slotTime && (
         <Success

@@ -11,7 +11,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-black">
+    <section id="hero" className="snap-section bg-black">
       <video
         ref={v}
         className="absolute inset-0 h-full w-full object-cover"
@@ -25,20 +25,36 @@ export function Hero() {
       />
 
       {/* legibility gradient at the bottom for the headline */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-black via-black/65 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-black via-black/70 to-transparent" />
 
-      {/* headline overlay — Assistant light, right-aligned */}
-      <div className="absolute inset-x-0 bottom-0 px-6 pb-14 sm:pb-20">
-        <motion.h1
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.5rem,11.5vw,3.6rem)] font-extralight leading-[1.08] tracking-[-0.025em] text-balance"
-        >
-          אתם מרחק נגיעה
-          <br />
-          מהבית החדש שלכם
-        </motion.h1>
+      {/* headline overlay — Assistant extralight, right-aligned, staggered entrance */}
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-16 sm:pb-24">
+        <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.9rem,13vw,4.1rem)] font-extralight leading-[1.06] tracking-[-0.028em] text-balance">
+          <motion.span
+            initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1.2,
+              delay: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="block"
+          >
+            אתם מרחק נגיעה
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1.2,
+              delay: 0.85,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="block"
+          >
+            מהבית החדש שלכם
+          </motion.span>
+        </h1>
       </div>
     </section>
   );
