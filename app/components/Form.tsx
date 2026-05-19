@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 export type LeadData = {
   name: string;
@@ -11,15 +10,7 @@ export type LeadData = {
   consent: boolean;
 };
 
-export function Form({
-  unlocked,
-  seats,
-  onSubmit,
-}: {
-  unlocked: boolean;
-  seats: number;
-  onSubmit: (d: LeadData) => void;
-}) {
+export function Form({ onSubmit }: { onSubmit: (d: LeadData) => void }) {
   const [data, setData] = useState<LeadData>({
     name: "",
     phone: "",
@@ -27,7 +18,9 @@ export function Form({
     consent: false,
   });
   const [submitting, setSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof LeadData, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof LeadData, string>>>(
+    {}
+  );
 
   const validate = () => {
     const e: Partial<Record<keyof LeadData, string>> = {};
@@ -50,35 +43,25 @@ export function Form({
   };
 
   return (
-    <section className="px-5 pb-16 pt-8">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="px-5 pb-16 pt-4"
+    >
       <div className="mx-auto max-w-[440px]">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-8 text-center"
-        >
-          <p className="text-[12px] font-light text-white/75">
-            <span className="tabular font-medium text-white">{seats}</span> מקומות אחרונים — השלמ/י פרטים
+        <div className="mb-10 text-center">
+          <p className="text-[11px] font-light tracking-wide text-white/45">
+            הבניין שלך — מוכן
           </p>
-        </motion.div>
+          <h3 className="mt-3 text-[clamp(1.7rem,6.8vw,2.1rem)] font-light leading-tight tracking-[-0.015em]">
+            השאירו פרטים
+            <br />
+            <span className="font-black">ועלו לדירה.</span>
+          </h3>
+        </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className={cn(
-            "relative space-y-1 transition-opacity",
-            !unlocked && "pointer-events-none opacity-30"
-          )}
-        >
-          {!unlocked && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
-              <span className="text-[12px] font-light text-white/65">
-                ↑ ענה/י על השאלות כדי לפתוח
-              </span>
-            </div>
-          )}
-
+        <form onSubmit={handleSubmit} className="space-y-1">
           <Field label="שם מלא" required error={errors.name}>
             <input
               type="text"
@@ -121,7 +104,9 @@ export function Form({
             <input
               type="checkbox"
               checked={data.consent}
-              onChange={(e) => setData({ ...data, consent: e.target.checked })}
+              onChange={(e) =>
+                setData({ ...data, consent: e.target.checked })
+              }
               className="check-box"
             />
             <span>
@@ -141,7 +126,7 @@ export function Form({
           </button>
         </form>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

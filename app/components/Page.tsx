@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { Topbar } from "./Topbar";
 import { Hero } from "./Hero";
-import { Fomo } from "./Fomo";
 import { Questions, type Answers } from "./Questions";
 import { Form, type LeadData } from "./Form";
 import { Success } from "./Success";
 import { Footer } from "./Footer";
 
 export function Page() {
-  const [seats, setSeats] = useState(12);
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     intent: null,
@@ -18,27 +17,31 @@ export function Page() {
     cities: [],
   });
   const [quizDone, setQuizDone] = useState(false);
-  const [success, setSuccess] = useState<{ position: number; name: string } | null>(null);
-
+  const [success, setSuccess] = useState<{ position: number; name: string } | null>(
+    null
+  );
   const formRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setSeats((s) => (s > 3 && Math.random() < 0.45 ? s - 1 : s));
-    }, 11000);
-    return () => clearInterval(t);
-  }, []);
 
   const onQuizComplete = () => {
     setQuizDone(true);
-    setTimeout(
-      () => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
-      80
-    );
   };
 
+  useEffect(() => {
+    if (quizDone) {
+      const t = setTimeout(
+        () =>
+          formRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          }),
+        120
+      );
+      return () => clearTimeout(t);
+    }
+  }, [quizDone]);
+
   const onSubmit = (d: LeadData) => {
-    const position = Math.max(3, Math.min(seats, 4 + Math.floor(Math.random() * 6)));
+    const position = 4 + Math.floor(Math.random() * 6);
     setSuccess({ position, name: d.name });
   };
 
@@ -47,16 +50,18 @@ export function Page() {
       <Topbar />
       <main>
         <Hero />
-        <Fomo seats={seats} />
         <Questions
           step={step}
           setStep={setStep}
           answers={answers}
           setAnswers={setAnswers}
+          complete={quizDone}
           onComplete={onQuizComplete}
         />
         <div ref={formRef}>
-          <Form unlocked={quizDone} seats={seats} onSubmit={onSubmit} />
+          <AnimatePresence>
+            {quizDone && <Form onSubmit={onSubmit} />}
+          </AnimatePresence>
         </div>
         <Footer />
       </main>

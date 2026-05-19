@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Building } from "./Building";
 
 export type Answers = {
   intent: string | null;
@@ -57,17 +58,18 @@ export function Questions({
   setStep,
   answers,
   setAnswers,
+  complete,
   onComplete,
 }: {
   step: number;
   setStep: (n: number) => void;
   answers: Answers;
   setAnswers: (a: Answers) => void;
+  complete: boolean;
   onComplete: () => void;
 }) {
   const q = QUESTIONS[step - 1];
   const total = QUESTIONS.length;
-  const progress = step / total;
 
   const handlePick = (val: string) => {
     if (q.multi) {
@@ -81,17 +83,15 @@ export function Questions({
       return;
     }
     setAnswers({ ...answers, [q.id]: val });
-    // auto-advance for single-select
     setTimeout(() => {
       if (step < total) setStep(step + 1);
       else onComplete();
-    }, 320);
+    }, 360);
   };
 
-  const canAdvance =
-    q.multi
-      ? (answers[q.id] as string[]).length > 0
-      : !!(answers[q.id] as string | null);
+  const canAdvance = q.multi
+    ? (answers[q.id] as string[]).length > 0
+    : !!(answers[q.id] as string | null);
 
   const handleNext = () => {
     if (step < total) setStep(step + 1);
@@ -99,28 +99,32 @@ export function Questions({
   };
 
   return (
-    <section className="px-5 pb-16 pt-8">
-      <div className="mx-auto grid max-w-[440px] grid-cols-[1fr_28px] gap-4">
-        {/* main content */}
+    <section className="px-5 pb-20 pt-16">
+      <div className="mx-auto grid max-w-[440px] grid-cols-[1fr_56px] gap-5">
+        {/* main content — visual right in RTL */}
         <div className="min-h-[420px]">
-          <div className="mb-6 flex items-baseline justify-between text-[11px] font-light text-white/35 tabular">
+          <div className="mb-7 flex items-baseline justify-between text-[11px] font-light text-white/40 tabular">
             <span>
-              <span className="text-white/85">{String(step).padStart(2, "0")}</span>
+              <span className="text-white/85">
+                {String(step).padStart(2, "0")}
+              </span>
               <span className="mx-1">/</span>
               <span>{String(total).padStart(2, "0")}</span>
             </span>
-            <span>שאלה {step} מתוך {total}</span>
+            <span>
+              קומה {step} מתוך {total}
+            </span>
           </div>
 
           <AnimatePresence mode="wait">
             <motion.div
               key={q.id}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h2 className="mb-7 text-[clamp(1.6rem,6.5vw,1.9rem)] font-light leading-[1.2] tracking-[-0.01em] text-balance">
+              <h2 className="mb-7 text-[clamp(1.55rem,6.5vw,1.9rem)] font-light leading-[1.2] tracking-[-0.01em] text-balance">
                 {q.prompt}
               </h2>
 
@@ -143,7 +147,9 @@ export function Questions({
                     <Option
                       key={opt.value}
                       label={opt.label}
-                      active={(answers[q.id] as string | null) === opt.value}
+                      active={
+                        (answers[q.id] as string | null) === opt.value
+                      }
                       onClick={() => handlePick(opt.value)}
                     />
                   ))}
@@ -156,39 +162,22 @@ export function Questions({
                   onClick={handleNext}
                   disabled={!canAdvance}
                   className={cn(
-                    "mt-7 w-full border border-white py-4 text-sm font-medium tracking-wide transition",
+                    "mt-7 w-full border py-4 text-sm font-medium tracking-wide transition",
                     canAdvance
-                      ? "bg-white text-black"
+                      ? "border-white bg-white text-black"
                       : "cursor-not-allowed border-white/15 bg-transparent text-white/30"
                   )}
                 >
-                  המשך
+                  עלייה לקומה האחרונה
                 </button>
               )}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* the building — a single thin vertical line that fills as you rise */}
-        <div className="relative flex flex-col items-center">
-          <span className="mb-3 text-[10px] font-light text-white/30 [writing-mode:vertical-rl] [text-orientation:mixed]">
-            עלייה
-          </span>
-          <div className="relative h-[320px] w-px bg-white/12">
-            <motion.div
-              className="absolute inset-x-0 bottom-0 w-px bg-white"
-              initial={false}
-              animate={{ height: `${progress * 100}%` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
-            {/* the marker rising along the line */}
-            <motion.div
-              className="absolute -right-[3px] h-1.5 w-1.5 bg-white"
-              initial={false}
-              animate={{ bottom: `calc(${progress * 100}% - 3px)` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </div>
+        {/* the building — visual left in RTL */}
+        <div className="h-[420px]">
+          <Building step={step} complete={complete} />
         </div>
       </div>
     </section>
@@ -233,7 +222,9 @@ function Option({
             {label}
           </span>
           {tag && (
-            <span className="text-[10px] font-light text-white/40">{tag}</span>
+            <span className="text-[10px] font-light text-white/40">
+              {tag}
+            </span>
           )}
         </div>
       ) : (
