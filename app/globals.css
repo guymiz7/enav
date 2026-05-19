@@ -5,11 +5,63 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: #000;
   }
-
   body {
     font-family: var(--font-heebo), -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
   }
+  ::selection { background: #fff; color: #000; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+}
+
+@layer components {
+  .input-line {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 14px 0;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  .input-line:focus { border-bottom-color: #fff; }
+  .input-line::placeholder { color: rgba(255,255,255,0.22); }
+
+  .check-box {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 3px;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .check-box:checked {
+    background: #fff;
+    border-color: #fff;
+  }
+  .check-box:checked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='%23000'><path d='M11.5 3.5L5.5 9.5 2.5 6.5l1-1L5.5 7.5l5-5z'/></svg>") center/10px no-repeat;
+  }
+}
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+  .text-balance { text-wrap: balance; }
 }
