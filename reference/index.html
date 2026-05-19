@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>ENAV · התור לצילום על הבטון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000000;
+  --bg-2:#0a0a0a;
+  --surface:#141414;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.18);
+  --text:#ffffff;
+  --text-muted:rgba(255,255,255,0.55);
+  --text-faint:rgba(255,255,255,0.32);
+  --accent:#ffffff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{
+  width:100%;
+  max-width:480px;
+  margin:0 auto;
+  overflow-x:hidden;
+  font-family:'Heebo',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+}
+body{position:relative;min-height:100dvh}
+img,video,iframe{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ================= FOMO TOP BAR ================= */
+.fomo-bar{
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  z-index:90;
+  background:rgba(0,0,0,0.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:0.2px;
+  color:#fff;
+}
+.fomo-bar .live{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-weight:500;
+  letter-spacing:0.3px;
+}
+.fomo-bar .live .pulse-dot{
+  width:7px;height:7px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 0 0 rgba(255,255,255,0.6);
+  animation:livePulse 1.4s ease-in-out infinite;
+}
+@keyframes livePulse{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,0.7)}
+  70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+}
+.fomo-bar .timer{
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0.5px;
+}
+.fomo-bar .timer strong{color:#fff;font-weight:900}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:560px;
+  max-height:900px;
+  overflow:hidden;
+  background:#000;
+  isolation:isolate;
+}
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:1;
+  pointer-events:none;
+  display:block;
+}
+/* Top fade — behind logo only (subtle) */
+.hero-top-fade{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:140px;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.65),transparent);
+}
+/* Bottom fade — gives content legibility, AI-Suits style */
+.hero-bottom-fade{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:55%;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(to top,#000 0%,rgba(0,0,0,0.85) 25%,rgba(0,0,0,0.4) 60%,transparent 100%);
+}
+.hero-top{
+  position:absolute;
+  top:0;left:0;right:0;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px 22px 0;
+}
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-wrap img{
+  height:32px;
+  width:auto;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+}
+.hero-content{
+  position:absolute;
+  left:0;right:0;
+  bottom:32px;
+  padding:0 22px;
+  z-index:3;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.hero-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:10px;
+  letter-spacing:4px;
+  font-weight:500;
+  color:rgba(255,255,255,0.85);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.hero-eyebrow::before{
+  content:"";
+  width:5px;height:5px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 10px rgba(255,255,255,0.8);
+  animation:blink 1.4s ease-in-out infinite;
+}
+.hero-title{
+  font-weight:900;
+  font-size:38px;
+  line-height:1.05;
+  color:#fff;
+  letter-spacing:-1px;
+  text-shadow:0 2px 30px rgba(0,0,0,0.6);
+  margin-bottom:14px;
+  max-width:22ch;
+}
+.hero-title .accent{
+  display:block;
+  font-style:italic;
+  font-weight:300;
+  letter-spacing:-0.5px;
+  color:#fff;
+  position:relative;
+}
+.hero-sub{
+  font-weight:300;
+  font-size:14.5px;
+  line-height:1.55;
+  color:rgba(255,255,255,0.82);
+  text-shadow:0 2px 12px rgba(0,0,0,0.6);
+  letter-spacing:0.2px;
+  max-width:340px;
+  margin:0 auto 22px;
+}
+.hero-cta{
+  width:100%;
+  max-width:340px;
+  background:#fff;
+  color:#000;
+  border-radius:60px;
+  padding:17px 28px;
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:0.3px;
+  box-shadow:0 8px 32px rgba(255,255,255,0.2),0 0 0 1px rgba(255,255,255,0.5);
+  position:relative;
+  overflow:hidden;
+  animation:ctaPulse 2.4s ease-in-out infinite;
+}
+.hero-cta::after{
+  content:"";
+  position:absolute;
+  top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,0.08),transparent);
+  animation:shine 3s ease-in-out infinite;
+}
+@keyframes shine{
+  0%{left:-100%}
+  60%{left:200%}
+  100%{left:200%}
+}
+@keyframes ctaPulse{
+  0%,100%{transform:scale(1);box-shadow:0 8px 32px rgba(255,255,255,0.2),0 0 0 1px rgba(255,255,255,0.5)}
+  50%{transform:scale(1.035);box-shadow:0 10px 40px rgba(255,255,255,0.35),0 0 0 1px rgba(255,255,255,0.65)}
+}
+.spots-left{
+  font-size:12px;
+  color:#fff;
+  font-weight:500;
+  letter-spacing:0.3px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.7);
+  margin-top:12px;
+}
+.spots-left .blink{
+  display:inline-block;
+  width:6px;height:6px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 8px rgba(255,255,255,0.7);
+  animation:blink 1s ease-in-out infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.25}
+}
+
+/* ================= FOMO INTRO ================= */
+.fomo-intro{
+  padding:64px 24px 36px;
+  text-align:center;
+  position:relative;
+  background:var(--bg);
+}
+.fomo-intro::before{
+  content:"";
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:60px;height:1px;
+  background:rgba(255,255,255,0.4);
+}
+.fomo-intro .eyebrow{
+  font-size:10.5px;
+  letter-spacing:4px;
+  color:#fff;
+  font-weight:500;
+  text-transform:uppercase;
+  margin-bottom:20px;
+  opacity:0.7;
+}
+.fomo-intro h2{
+  font-weight:900;
+  font-size:30px;
+  line-height:1.2;
+  color:#fff;
+  letter-spacing:-0.5px;
+  margin-bottom:18px;
+}
+.fomo-intro h2 .em{
+  font-style:italic;
+  font-weight:300;
+}
+.fomo-intro p{
+  font-size:15px;
+  font-weight:300;
+  line-height:1.65;
+  color:var(--text-muted);
+  max-width:360px;
+  margin:0 auto 26px;
+}
+.queue-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--line-strong);
+  border-radius:50px;
+  padding:11px 20px;
+  font-size:13px;
+  color:#fff;
+  font-weight:400;
+}
+.queue-meta .sep{width:1px;height:14px;background:rgba(255,255,255,0.18)}
+.queue-meta strong{color:#fff;font-weight:900}
+
+/* ================= WIZARD ================= */
+.wizard{
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+  padding:0 0 32px;
+}
+.wizard::before{
+  content:"";
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:120%;height:1px;
+  background:rgba(255,255,255,0.08);
+}
+.floor-header{
+  position:sticky;
+  top:36px;
+  z-index:50;
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  padding:18px 22px 14px;
+  border-bottom:1px solid var(--line);
+}
+.floor-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:11px;
+}
+.floor-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:500;
+  color:#fff;
+  letter-spacing:0.2px;
+}
+.floor-label .floor-num{
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+.floor-icon{
+  width:18px;height:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  opacity:0.85;
+}
+.back-btn{
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--line);
+  color:#fff;
+  font-size:16px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease;
+}
+.back-btn.visible{opacity:1;pointer-events:auto}
+.progress-track{
+  height:2px;
+  background:rgba(255,255,255,0.08);
+  border-radius:2px;
+  overflow:hidden;
+  position:relative;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:#fff;
+  transition:width 0.55s cubic-bezier(0.65,0,0.35,1);
+  box-shadow:0 0 10px rgba(255,255,255,0.4);
+  position:relative;
+}
+.progress-fill::after{
+  content:"";
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+  animation:progShine 2s ease-in-out infinite;
+}
+@keyframes progShine{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+
+.steps-container{
+  position:relative;
+  padding:26px 22px 32px;
+}
+.step{
+  display:none;
+  flex-direction:column;
+  gap:18px;
+}
+.step.active{display:flex;animation:stepIn 0.45s cubic-bezier(0.25,0.46,0.45,0.94)}
+@keyframes stepIn{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.step.active.back{animation:stepInBack 0.45s cubic-bezier(0.25,0.46,0.45,0.94)}
+@keyframes stepInBack{
+  from{opacity:0;transform:translateY(-28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.step-head{text-align:center;margin-bottom:8px}
+.step-head h3{
+  font-weight:900;
+  font-size:24px;
+  line-height:1.25;
+  color:#fff;
+  letter-spacing:-0.4px;
+  margin-bottom:6px;
+}
+.step-head p{
+  font-size:13px;
+  font-weight:300;
+  color:var(--text-muted);
+  line-height:1.5;
+}
+.step-head .urgency-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:14px;
+  padding:6px 13px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--line-strong);
+  border-radius:50px;
+  font-size:11px;
+  font-weight:500;
+  color:#fff;
+  letter-spacing:0.3px;
+}
+.step-head .urgency-pill .blink{
+  width:5px;height:5px;
+  background:#fff;
+  border-radius:50%;
+  animation:blink 1s ease-in-out infinite;
+}
+
+/* ---- Goal cards (step 1) ---- */
+.goal-grid{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.goal-card{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 18px;
+  background:rgba(255,255,255,0.03);
+  border:1.5px solid var(--line-strong);
+  border-radius:18px;
+  transition:all 0.25s ease;
+  text-align:right;
+  position:relative;
+  overflow:hidden;
+}
+.goal-card.selected{
+  border-color:#fff;
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 0 0 3px rgba(255,255,255,0.08),0 8px 24px rgba(0,0,0,0.5);
+  transform:scale(1.01);
+}
+.goal-card .icon{
+  width:48px;height:48px;
+  flex-shrink:0;
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  filter:grayscale(1);
+}
+.goal-card.selected .icon{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3)}
+.goal-card .copy{flex:1}
+.goal-card .title{
+  font-weight:700;
+  font-size:17px;
+  color:#fff;
+  margin-bottom:3px;
+}
+.goal-card .desc{
+  font-weight:300;
+  font-size:12.5px;
+  color:var(--text-muted);
+  line-height:1.45;
+}
+.goal-card .chev{
+  font-size:18px;
+  color:rgba(255,255,255,0.25);
+  transition:color 0.2s ease,transform 0.2s ease;
+}
+.goal-card.selected .chev{color:#fff;transform:translateX(-3px)}
+
+/* ---- Budget pills (step 2) ---- */
+.budget-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.budget-pill{
+  padding:20px 14px;
+  border-radius:16px;
+  border:1.5px solid var(--line-strong);
+  background:rgba(255,255,255,0.03);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  transition:all 0.25s ease;
+}
+.budget-pill .amt{
+  font-weight:900;
+  font-size:24px;
+  color:#fff;
+  letter-spacing:-0.5px;
+  line-height:1;
+}
+.budget-pill .label{
+  font-weight:400;
+  font-size:11px;
+  color:var(--text-muted);
+  letter-spacing:0.5px;
+}
+.budget-pill.selected{
+  background:#fff;
+  border-color:#fff;
+  transform:scale(1.04);
+  box-shadow:0 6px 24px rgba(255,255,255,0.18);
+}
+.budget-pill.selected .amt{color:#000}
+.budget-pill.selected .label{color:rgba(0,0,0,0.6)}
+
+/* ---- Cities grid multi-select (step 3) ---- */
+.multi-hint{
+  text-align:center;
+  font-size:11.5px;
+  color:#fff;
+  font-weight:500;
+  letter-spacing:0.4px;
+  margin-bottom:-2px;
+  opacity:0.65;
+}
+.cities-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+.city-chip{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1.5px solid var(--line-strong);
+  background:rgba(255,255,255,0.03);
+  transition:all 0.22s ease;
+  text-align:right;
+  position:relative;
+}
+.city-chip .city-name{
+  font-weight:600;
+  font-size:14px;
+  color:#fff;
+  line-height:1.1;
+}
+.city-chip .pre-tag{
+  display:block;
+  font-weight:400;
+  font-size:10px;
+  color:rgba(255,255,255,0.6);
+  margin-top:3px;
+  letter-spacing:0.3px;
+  font-style:italic;
+}
+.city-chip .check{
+  width:20px;height:20px;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,0.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-right:8px;
+  transition:all 0.2s ease;
+}
+.city-chip .check::after{
+  content:"✓";
+  color:#000;
+  font-size:12px;
+  font-weight:900;
+  opacity:0;
+  transform:scale(0);
+  transition:all 0.2s ease;
+}
+.city-chip.selected{
+  background:rgba(255,255,255,0.1);
+  border-color:#fff;
+}
+.city-chip.selected .check{
+  background:#fff;
+  border-color:#fff;
+}
+.city-chip.selected .check::after{opacity:1;transform:scale(1)}
+.city-chip.selected .pre-tag{color:rgba(255,255,255,0.75)}
+
+/* ---- Form (step 4) ---- */
+.form-fields{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.field-label{
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--text-muted);
+  letter-spacing:0.3px;
+  padding-right:4px;
+}
+.field-label .req{color:#fff;margin-right:2px;font-weight:900}
+.field-label .opt{color:rgba(255,255,255,0.35);font-weight:300;font-size:10.5px;margin-right:6px}
+.field input{
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1.5px solid var(--line-strong);
+  border-radius:14px;
+  padding:15px 16px;
+  color:#fff;
+  font-size:16px;
+  font-weight:400;
+  font-family:'Heebo',sans-serif;
+  outline:none;
+  transition:border-color 0.2s,background 0.2s,box-shadow 0.2s;
+  direction:rtl;
+}
+.field input::placeholder{color:rgba(255,255,255,0.3)}
+.field input:focus{
+  border-color:#fff;
+  background:rgba(255,255,255,0.07);
+  box-shadow:0 0 0 3px rgba(255,255,255,0.1);
+}
+.field.error input{border-color:#ff6b6b;box-shadow:0 0 0 3px rgba(255,107,107,0.12)}
+.field-error{
+  font-size:11.5px;
+  color:#ff8a8a;
+  font-weight:400;
+  display:none;
+  padding-right:4px;
+}
+.field.error .field-error{display:block}
+
+.consent{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:8px 0 4px;
+  cursor:pointer;
+  user-select:none;
+  position:relative;
+}
+.consent input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.consent .box{
+  width:20px;height:20px;
+  flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,0.3);
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1px;
+  transition:all 0.2s ease;
+  background:rgba(255,255,255,0.03);
+}
+.consent .box::after{
+  content:"✓";
+  color:#000;
+  font-size:12px;
+  font-weight:900;
+  opacity:0;
+  transform:scale(0);
+  transition:all 0.2s ease;
+}
+.consent input:checked ~ .box{
+  background:#fff;
+  border-color:#fff;
+}
+.consent input:checked ~ .box::after{opacity:1;transform:scale(1)}
+.consent .txt{
+  font-size:11.5px;
+  line-height:1.55;
+  color:var(--text-muted);
+  font-weight:300;
+}
+.consent .txt a{color:#fff;text-decoration:underline;font-weight:500}
+.consent.error .box{border-color:#ff6b6b}
+
+.submit-btn{
+  width:100%;
+  background:#fff;
+  color:#000;
+  border-radius:60px;
+  padding:17px;
+  font-weight:900;
+  font-size:16.5px;
+  letter-spacing:0.2px;
+  font-family:'Heebo',sans-serif;
+  transition:transform 0.2s,opacity 0.2s,box-shadow 0.2s;
+  box-shadow:0 8px 28px rgba(255,255,255,0.18);
+  margin-top:6px;
+  position:relative;
+  overflow:hidden;
+}
+.submit-btn:disabled{opacity:0.35;cursor:not-allowed;box-shadow:none}
+.submit-btn:active:not(:disabled){transform:scale(0.985)}
+.submit-btn .spinner{
+  display:inline-block;
+  width:16px;height:16px;
+  border:2.5px solid rgba(0,0,0,0.2);
+  border-top-color:#000;
+  border-radius:50%;
+  animation:spin 0.7s linear infinite;
+  vertical-align:-3px;
+  margin-left:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Step CTA (next button) */
+.step-cta{
+  width:100%;
+  background:#fff;
+  color:#000;
+  border-radius:60px;
+  padding:15px;
+  font-weight:900;
+  font-size:15.5px;
+  letter-spacing:0.2px;
+  margin-top:8px;
+  box-shadow:0 6px 22px rgba(255,255,255,0.15);
+  transition:transform 0.18s,opacity 0.2s;
+}
+.step-cta:disabled{opacity:0.3;cursor:not-allowed;box-shadow:none}
+.step-cta:active:not(:disabled){transform:scale(0.985)}
+
+/* ---- Success (step 5) ---- */
+.success-step{
+  text-align:center;
+  align-items:center;
+  padding:32px 8px 24px;
+}
+.success-circle{
+  width:88px;height:88px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+  color:#000;
+  font-size:46px;
+  font-weight:900;
+  box-shadow:0 10px 40px rgba(255,255,255,0.25);
+  transform:scale(0);
+}
+.success-step.show .success-circle{
+  animation:pop 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes pop{
+  0%{transform:scale(0)}
+  60%{transform:scale(1.15)}
+  100%{transform:scale(1)}
+}
+.success-title{
+  font-weight:900;
+  font-size:28px;
+  color:#fff;
+  margin-bottom:4px;
+  letter-spacing:-0.5px;
+}
+.success-sub{
+  font-size:13.5px;
+  color:var(--text-muted);
+  font-weight:300;
+  margin-bottom:28px;
+  line-height:1.5;
+}
+.tour-card{
+  width:100%;
+  background:rgba(255,255,255,0.05);
+  border:1.5px solid rgba(255,255,255,0.25);
+  border-radius:20px;
+  padding:24px 18px;
+  margin-bottom:18px;
+}
+.tour-label{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:3px;
+  color:#fff;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  opacity:0.7;
+}
+.tour-num{
+  font-weight:900;
+  font-size:80px;
+  color:#fff;
+  line-height:0.95;
+  letter-spacing:-3px;
+  margin-bottom:12px;
+}
+.tour-info{
+  font-size:13px;
+  color:var(--text-muted);
+  font-weight:300;
+  line-height:1.55;
+}
+.tour-info strong{color:#fff;font-weight:700}
+.next-steps{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
+  text-align:right;
+  font-size:13px;
+  color:var(--text-muted);
+  font-weight:300;
+  line-height:1.6;
+}
+.next-steps strong{color:#fff;font-weight:500;display:block;margin-bottom:6px;font-size:13.5px}
+
+/* ================= TOAST ================= */
+.toast-stack{
+  position:fixed;
+  top:50px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  z-index:80;
+  padding:0 16px;
+  pointer-events:none;
+}
+.toast{
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:14px;
+  padding:11px 14px;
+  font-size:12.5px;
+  color:#fff;
+  font-weight:400;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.6);
+  transform:translateY(-120%);
+  opacity:0;
+  transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s;
+}
+.toast.in{transform:translateY(0);opacity:1}
+.toast .ava{
+  width:30px;height:30px;
+  border-radius:50%;
+  background:#fff;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:13px;
+  flex-shrink:0;
+}
+.toast .msg strong{color:#fff;font-weight:700}
+
+/* ================= FOOTER / LEGAL ================= */
+.legal-footer{
+  background:#000;
+  padding:32px 24px calc(28px + env(safe-area-inset-bottom));
+  text-align:center;
+  border-top:1px solid var(--line);
+}
+.legal-footer .logo-mini{
+  height:22px;
+  width:auto;
+  filter:brightness(0) invert(1);
+  opacity:0.45;
+  margin:0 auto 16px;
+}
+.legal-footer .links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.legal-footer .links button{
+  font-size:12px;
+  color:rgba(255,255,255,0.55);
+  font-weight:400;
+  letter-spacing:0.2px;
+  padding:4px 2px;
+  border-bottom:1px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+}
+.legal-footer .links button:hover{color:#fff;border-color:rgba(255,255,255,0.4)}
+.legal-footer .links .dot{
+  width:3px;height:3px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.2);
+}
+.legal-footer .copy{
+  font-size:10.5px;
+  color:rgba(255,255,255,0.3);
+  font-weight:300;
+  line-height:1.6;
+}
+
+/* ================= MODAL ================= */
+.modal-back{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:200;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+.modal-back.open{display:flex;animation:fadeIn 0.25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  width:100%;
+  max-width:480px;
+  max-height:88vh;
+  background:#0a0a0a;
+  border-top:1px solid rgba(255,255,255,0.18);
+  border-radius:24px 24px 0 0;
+  display:flex;
+  flex-direction:column;
+  animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+}
+.modal-head h4{
+  font-weight:700;
+  font-size:17px;
+  color:#fff;
+}
+.modal-close{
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--line);
+  color:#fff;
+  font-size:18px;
+}
+.modal-body{
+  overflow-y:auto;
+  padding:20px 22px 32px;
+  font-size:13.5px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.75);
+  font-weight:300;
+}
+.modal-body h5{
+  font-weight:700;
+  font-size:14.5px;
+  color:#fff;
+  margin:18px 0 6px;
+}
+.modal-body h5:first-child{margin-top:0}
+.modal-body p{margin-bottom:10px}
+.modal-body ul{padding-right:18px;margin:6px 0 10px}
+.modal-body li{margin-bottom:6px}
+
+/* ================= MISC ================= */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.7s ease-out,transform 0.7s ease-out;
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media (max-height:680px){
+  .hero{min-height:520px;height:88vh}
+  .hero-title{font-size:32px}
+  .hero-content{bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== FOMO TOP BAR ========== -->
+<div class="fomo-bar" id="fomo-bar">
+  <div class="live"><span class="pulse-dot"></span> <span id="queue-count">17</span> בתור</div>
+  <div class="timer">צילום הבא בעוד <strong id="timer">04:32</strong></div>
+</div>
+
+<!-- ========== TOAST STACK ========== -->
+<div class="toast-stack" id="toasts"></div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" disablePictureInPicture aria-hidden="true">
+    <source src="images/mp_.mp4" type="video/mp4">
+  </video>
+  <div class="hero-top-fade"></div>
+  <div class="hero-bottom-fade"></div>
+
+  <div class="hero-top">
+    <div class="logo-wrap">
+      <img src="images/logo.png" alt="ENAV" />
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">בלעדי לכנס נדל"ן 2026</div>
+    <h1 class="hero-title">
+      תור הצילום שלך
+      <span class="accent">מחכה למעלה</span>
+    </h1>
+    <p class="hero-sub">תמונת בטון בלעדית · מקום מוגבל · רק למשתתפי הכנס</p>
+    <button class="hero-cta" id="hero-cta">קח לי מקום בתור ↓</button>
+    <div class="spots-left"><span class="blink"></span> <span id="spots-num">12</span> מקומות נותרו היום</div>
+  </div>
+</section>
+
+<!-- ========== FOMO INTRO ========== -->
+<section class="fomo-intro reveal" id="intro">
+  <div class="eyebrow">חוויה בלעדית · ENAV</div>
+  <h2>
+    הם מצלמים <span class="em">למעלה</span>.<br>
+    אתה עדיין למטה.
+  </h2>
+  <p>התור לצילום על הבטון מתמלא בכל דקה. רק מי שמשלים את הטופס ב-30 שניות הבאות מקבל מספר וייכנס לתור הבא.</p>
+  <div class="queue-meta">
+    <span>📸 <strong id="meta-shot">47</strong> צולמו</span>
+    <span class="sep"></span>
+    <span>⏳ <strong id="meta-wait">~6 דק'</strong> המתנה</span>
+  </div>
+</section>
+
+<!-- ========== WIZARD ========== -->
+<section class="wizard" id="wizard">
+
+  <div class="floor-header">
+    <div class="floor-row">
+      <button class="back-btn" id="back-btn" aria-label="חזרה">→</button>
+      <div class="floor-label">
+        <span class="floor-icon">▲</span>
+        <span>קומה <span class="floor-num" id="floor-num">8</span> · <span id="floor-dest">בדרך לפנטהאוז</span></span>
+      </div>
+      <div style="width:32px"></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <!-- STEP 1: Goal -->
+    <div class="step active" id="step-1">
+      <div class="step-head">
+        <h3>מה הביא אותך לכנס?</h3>
+        <p>בחר אופציה אחת — נמשיך משם</p>
+      </div>
+      <div class="goal-grid">
+        <button class="goal-card" data-goal="living">
+          <div class="icon">🏠</div>
+          <div class="copy">
+            <div class="title">דירה למגורים</div>
+            <div class="desc">חיים גבוה יותר · נוף פתוח · מפרט יוקרתי</div>
+          </div>
+          <div class="chev">←</div>
+        </button>
+        <button class="goal-card" data-goal="investment">
+          <div class="icon">📈</div>
+          <div class="copy">
+            <div class="title">השקעה</div>
+            <div class="desc">תשואה גבוהה · ביקוש קשיח · יציבות</div>
+          </div>
+          <div class="chev">←</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Budget -->
+    <div class="step" id="step-2">
+      <div class="step-head">
+        <h3>איזה תקציב עומד לרשותך?</h3>
+        <p>טווח גס — נוכל להתאים את ההצעה</p>
+      </div>
+      <div class="budget-grid">
+        <button class="budget-pill" data-budget="2m"><span class="amt">2M</span><span class="label">₪ מליון</span></button>
+        <button class="budget-pill" data-budget="3m"><span class="amt">3M</span><span class="label">₪ מליון</span></button>
+        <button class="budget-pill" data-budget="4m"><span class="amt">4M</span><span class="label">₪ מליון</span></button>
+        <button class="budget-pill" data-budget="5m+"><span class="amt">5M+</span><span class="label">₪ ומעלה</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Cities (multi) -->
+    <div class="step" id="step-3">
+      <div class="step-head">
+        <h3>אילו ערים מעניינות אותך?</h3>
+        <p>אפשר לבחור כמה שתרצה</p>
+        <div class="urgency-pill"><span class="blink"></span> 3 משתתפים בחרו עכשיו "תל אביב"</div>
+      </div>
+      <div class="multi-hint">↓ בחירה מרובה</div>
+      <div class="cities-grid" id="cities-grid">
+        <button class="city-chip" data-city="רמת גן"><span class="city-name">רמת גן</span><span class="check"></span></button>
+        <button class="city-chip" data-city="תל אביב"><span class="city-name">תל אביב<span class="pre-tag">פריסייל</span></span><span class="check"></span></button>
+        <button class="city-chip" data-city="כפר סבא"><span class="city-name">כפר סבא</span><span class="check"></span></button>
+        <button class="city-chip" data-city="עין הים"><span class="city-name">עין הים<span class="pre-tag">פריסייל</span></span><span class="check"></span></button>
+        <button class="city-chip" data-city="קריית אונו"><span class="city-name">קריית אונו</span><span class="check"></span></button>
+        <button class="city-chip" data-city="יהוד מונסון"><span class="city-name">יהוד מונסון</span><span class="check"></span></button>
+        <button class="city-chip" data-city="ירושלים"><span class="city-name">ירושלים</span><span class="check"></span></button>
+        <button class="city-chip" data-city="נתניה"><span class="city-name">נתניה</span><span class="check"></span></button>
+      </div>
+      <button class="step-cta" id="cities-next" disabled>המשך לפרטים ←</button>
+    </div>
+
+    <!-- STEP 4: Form -->
+    <div class="step" id="step-4">
+      <div class="step-head">
+        <h3>כמעט בפנים</h3>
+        <p>שני שדות וזה שלך</p>
+        <div class="urgency-pill"><span class="blink"></span> מקומך נשמר עוד <span id="hold-timer">90</span> שניות</div>
+      </div>
+      <form class="form-fields" id="lead-form" novalidate autocomplete="on">
+        <div class="field" data-field="name">
+          <label class="field-label" for="f-name"><span class="req">*</span> שם מלא</label>
+          <input type="text" id="f-name" name="name" placeholder="לדוגמה: יוסי כהן" autocomplete="name" inputmode="text">
+          <div class="field-error">נא להזין שם מלא</div>
+        </div>
+        <div class="field" data-field="phone">
+          <label class="field-label" for="f-phone"><span class="req">*</span> טלפון נייד</label>
+          <input type="tel" id="f-phone" name="phone" placeholder="050-0000000" autocomplete="tel" inputmode="tel">
+          <div class="field-error">מספר טלפון לא תקין</div>
+        </div>
+        <div class="field" data-field="email">
+          <label class="field-label" for="f-email">אימייל <span class="opt">(רשות)</span></label>
+          <input type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+          <div class="field-error">כתובת מייל לא תקינה</div>
+        </div>
+
+        <label class="consent" id="consent-wrap">
+          <input type="checkbox" id="f-consent">
+          <span class="box"></span>
+          <span class="txt">אני מאשר/ת את <a href="#" data-modal="terms">תנאי השימוש</a> ואת <a href="#" data-modal="privacy">מדיניות הפרטיות</a>, וכן קבלת דיוור ושיחה מצוות ENAV.</span>
+        </label>
+
+        <button type="submit" class="submit-btn" id="submit-btn" disabled>סיים והבטח מקום</button>
+      </form>
+    </div>
+
+    <!-- STEP 5: Success -->
+    <div class="step success-step" id="step-5">
+      <div class="success-circle">✓</div>
+      <div class="success-title">אתה בפנים</div>
+      <div class="success-sub">המקום שלך בתור לצילום הבטון נשמר</div>
+
+      <div class="tour-card">
+        <div class="tour-label">מספר התור שלך</div>
+        <div class="tour-num" id="tour-num">#00</div>
+        <div class="tour-info">
+          <strong id="ahead-num">8</strong> אנשים לפניך · המתנה צפויה: <strong id="wait-num">~6 דק'</strong>
+        </div>
+      </div>
+
+      <div class="next-steps">
+        <strong>מה הלאה?</strong>
+        גש לעמדת הצילום באזור ENAV ברגע שהמספר שלך יוצג על המסך. צוות הפרויקט יקבל את פרטיך וייצור איתך קשר בימים הקרובים עם התאמות לפי הבחירה שלך.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== LEGAL FOOTER ========== -->
+<footer class="legal-footer">
+  <img class="logo-mini" src="images/logo.png" alt="ENAV">
+  <div class="links">
+    <button data-modal="terms">תנאי שימוש</button>
+    <span class="dot"></span>
+    <button data-modal="privacy">מדיניות פרטיות</button>
+    <span class="dot"></span>
+    <button data-modal="accessibility">נגישות</button>
+  </div>
+  <div class="copy">
+    כל הזכויות שמורות © ENAV 2026 · המידע באתר זה הינו שיווקי בלבד ואינו מהווה הצעה מחייבת. תמונות להמחשה בלבד.
+  </div>
+</footer>
+
+<!-- ========== MODAL ========== -->
+<div class="modal-back" id="modal-back">
+  <div class="modal">
+    <div class="modal-head">
+      <h4 id="modal-title">תנאי שימוש</h4>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ============= STATE =============
+  const state = {
+    goal:null,
+    budget:null,
+    cities:[],
+    name:'',
+    phone:'',
+    email:'',
+    consent:false,
+    tourNum:null
+  };
+  const totalSteps = 5;
+  const floors = {1:8, 2:16, 3:24, 4:32, 5:35};
+  const floorDest = {1:'בדרך לפנטהאוז', 2:'בדרך לפנטהאוז', 3:'בדרך לפנטהאוז', 4:'כמעט בפנטהאוז', 5:'הגעת לפנטהאוז'};
+  let currentStep = 1;
+  const history = [];
+
+  // ============= ELEMENTS =============
+  const $ = (s)=>document.querySelector(s);
+  const heroCta = $('#hero-cta');
+  const wizard = $('#wizard');
+  const backBtn = $('#back-btn');
+  const progressFill = $('#progress-fill');
+  const floorNum = $('#floor-num');
+  const floorDestEl = $('#floor-dest');
+  const queueCount = $('#queue-count');
+  const spotsNum = $('#spots-num');
+  const timerEl = $('#timer');
+  const metaShot = $('#meta-shot');
+  const citiesNextBtn = $('#cities-next');
+  const submitBtn = $('#submit-btn');
+  const consentChk = $('#f-consent');
+  const consentWrap = $('#consent-wrap');
+  const tourNumEl = $('#tour-num');
+  const aheadNumEl = $('#ahead-num');
+  const waitNumEl = $('#wait-num');
+  const toastStack = $('#toasts');
+
+  // ============= HERO CTA SCROLL =============
+  heroCta.addEventListener('click',()=>{
+    wizard.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  // ============= REVEAL ANIMATIONS =============
+  const revealObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target);}
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+  // ============= FOMO COUNTDOWN TIMER =============
+  let secondsLeft = 4*60+32;
+  function fmt(s){
+    const m = Math.floor(s/60);
+    const r = s%60;
+    return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0');
+  }
+  function tickTimer(){
+    secondsLeft--;
+    if(secondsLeft<=0) secondsLeft = Math.floor(Math.random()*180)+240;
+    timerEl.textContent = fmt(secondsLeft);
+  }
+  setInterval(tickTimer,1000);
+
+  // ============= LIVE QUEUE FLUCTUATION =============
+  function setQueueCount(){
+    const base = 15;
+    const next = base + Math.floor(Math.random()*8);
+    queueCount.textContent = next;
+  }
+  setInterval(setQueueCount, 7000);
+
+  // ============= SPOTS LEFT DECREMENT =============
+  let spots = 12;
+  function decrementSpots(){
+    if(spots > 4 && Math.random() > 0.5){
+      spots--;
+      spotsNum.textContent = spots;
+      spotsNum.style.transition='opacity 0.3s';
+      spotsNum.style.opacity='0.3';
+      setTimeout(()=>{ spotsNum.style.opacity='1'; },300);
+    }
+  }
+  setInterval(decrementSpots, 18000);
+
+  // ============= META FLUCTUATION =============
+  let shotCount = 47;
+  setInterval(()=>{
+    if(Math.random()>0.6){
+      shotCount++;
+      metaShot.textContent = shotCount;
+    }
+  },9000);
+
+  // ============= TOASTS (social proof) =============
+  const fakeNames = ['רונן ל.','שירה כ.','אבישי ב.','דנה ר.','מיכאל ש.','נועה א.','עידן פ.','ליאת מ.','אורן ט.','יעל ה.'];
+  const fakeCities = ['רמת גן','תל אביב','כפר סבא','ירושלים','נתניה','קריית אונו'];
+  function showToast(){
+    const name = fakeNames[Math.floor(Math.random()*fakeNames.length)];
+    const city = fakeCities[Math.floor(Math.random()*fakeCities.length)];
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = '<div class="ava">'+name.charAt(0)+'</div><div class="msg"><strong>'+name+'</strong> מ-'+city+' נכנס/ה לתור עכשיו</div>';
+    toastStack.appendChild(t);
+    requestAnimationFrame(()=>{ requestAnimationFrame(()=>t.classList.add('in')); });
+    setTimeout(()=>{
+      t.classList.remove('in');
+      setTimeout(()=>t.remove(),500);
+    },3800);
+  }
+  setTimeout(()=>{
+    showToast();
+    setInterval(()=>{ if(Math.random()>0.3) showToast(); }, 12000);
+  }, 6000);
+
+  // ============= WIZARD NAVIGATION =============
+  function setFloor(n){
+    const fl = floors[n];
+    floorNum.textContent = fl;
+    floorDestEl.textContent = floorDest[n];
+    const pct = (fl/floors[totalSteps])*100;
+    progressFill.style.width = pct+'%';
+  }
+  function showStep(n, direction){
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('active','back'));
+    const el = document.getElementById('step-'+n);
+    if(!el) return;
+    el.classList.add('active');
+    if(direction==='back') el.classList.add('back');
+    currentStep = n;
+    setFloor(n);
+    if(n>1) backBtn.classList.add('visible');
+    else backBtn.classList.remove('visible');
+    if(n===5){
+      el.classList.add('show');
+      handleSuccess();
+    }
+    if(n===4) startHoldTimer();
+    if(n>1){
+      const top = wizard.offsetTop;
+      window.scrollTo({top:top, behavior:'smooth'});
+    }
+  }
+  function goNext(){
+    history.push(currentStep);
+    showStep(currentStep+1);
+  }
+  function goBack(){
+    const prev = history.pop();
+    if(typeof prev === 'number') showStep(prev,'back');
+  }
+  backBtn.addEventListener('click', goBack);
+
+  // ============= STEP 1: GOAL =============
+  document.querySelectorAll('.goal-card').forEach(card=>{
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      state.goal = card.dataset.goal;
+      setTimeout(goNext, 380);
+    });
+  });
+
+  // ============= STEP 2: BUDGET =============
+  document.querySelectorAll('.budget-pill').forEach(p=>{
+    p.addEventListener('click',()=>{
+      document.querySelectorAll('.budget-pill').forEach(x=>x.classList.remove('selected'));
+      p.classList.add('selected');
+      state.budget = p.dataset.budget;
+      setTimeout(goNext, 380);
+    });
+  });
+
+  // ============= STEP 3: CITIES (MULTI) =============
+  document.querySelectorAll('.city-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      chip.classList.toggle('selected');
+      const selected = Array.from(document.querySelectorAll('.city-chip.selected')).map(x=>x.dataset.city);
+      state.cities = selected;
+      citiesNextBtn.disabled = selected.length === 0;
+      if(selected.length){
+        citiesNextBtn.textContent = 'המשך לפרטים ('+selected.length+') ←';
+      } else {
+        citiesNextBtn.textContent = 'המשך לפרטים ←';
+      }
+    });
+  });
+  citiesNextBtn.addEventListener('click',()=>{
+    if(state.cities.length>0) goNext();
+  });
+
+  // ============= STEP 4: FORM =============
+  const fName = $('#f-name');
+  const fPhone = $('#f-phone');
+  const fEmail = $('#f-email');
+  const form = $('#lead-form');
+
+  const phoneRegex = /^0(5\d|7[2-9])-?\d{7}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function validate(showErr){
+    const nameOk = fName.value.trim().length >= 2;
+    const phoneOk = phoneRegex.test(fPhone.value.trim().replace(/[-\s]/g,''));
+    const emailVal = fEmail.value.trim();
+    const emailOk = emailVal === '' || emailRegex.test(emailVal);
+    if(showErr){
+      $('.field[data-field="name"]').classList.toggle('error',!nameOk);
+      $('.field[data-field="phone"]').classList.toggle('error',!phoneOk);
+      $('.field[data-field="email"]').classList.toggle('error',!emailOk);
+      consentWrap.classList.toggle('error',!state.consent);
+    }
+    const allOk = nameOk && phoneOk && emailOk && state.consent;
+    submitBtn.disabled = !allOk;
+    return allOk;
+  }
+
+  function liveClear(field, valid){
+    const w = $('.field[data-field="'+field+'"]');
+    if(w && w.classList.contains('error') && valid) w.classList.remove('error');
+  }
+
+  fName.addEventListener('input',()=>{
+    liveClear('name', fName.value.trim().length >= 2);
+    validate(false);
+  });
+  fPhone.addEventListener('input',()=>{
+    const v = fPhone.value.trim().replace(/[-\s]/g,'');
+    liveClear('phone', phoneRegex.test(v));
+    validate(false);
+  });
+  fEmail.addEventListener('input',()=>{
+    const v = fEmail.value.trim();
+    liveClear('email', v==='' || emailRegex.test(v));
+    validate(false);
+  });
+  fName.addEventListener('blur',()=>{
+    $('.field[data-field="name"]').classList.toggle('error', fName.value.trim().length < 2);
+  });
+  fPhone.addEventListener('blur',()=>{
+    const v = fPhone.value.trim().replace(/[-\s]/g,'');
+    $('.field[data-field="phone"]').classList.toggle('error', !phoneRegex.test(v));
+  });
+  fEmail.addEventListener('blur',()=>{
+    const v = fEmail.value.trim();
+    $('.field[data-field="email"]').classList.toggle('error', v!=='' && !emailRegex.test(v));
+  });
+
+  consentChk.addEventListener('change',()=>{
+    state.consent = consentChk.checked;
+    if(state.consent) consentWrap.classList.remove('error');
+    validate(false);
+  });
+
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    if(!validate(true)) return;
+    state.name = fName.value.trim();
+    state.phone = fPhone.value.trim();
+    state.email = fEmail.value.trim();
+    submitBtn.disabled = true;
+    const original = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'שומר את מקומך <span class="spinner"></span>';
+    setTimeout(()=>{
+      goNext();
+      submitBtn.innerHTML = original;
+    }, 1400);
+  });
+
+  // ============= STEP 4: Hold timer =============
+  let holdInterval = null;
+  function startHoldTimer(){
+    if(holdInterval) clearInterval(holdInterval);
+    let sec = 90;
+    const el = document.getElementById('hold-timer');
+    if(!el) return;
+    el.textContent = sec;
+    holdInterval = setInterval(()=>{
+      sec--;
+      if(sec<=0){ sec = 90; }
+      el.textContent = sec;
+    },1000);
+  }
+
+  // ============= STEP 5: Success animation =============
+  let successHandled = false;
+  function handleSuccess(){
+    if(successHandled) return;
+    successHandled = true;
+    const tour = Math.floor(Math.random()*40)+18;
+    state.tourNum = tour;
+    const ahead = Math.floor(Math.random()*6)+5;
+    const wait = ahead * 1.2;
+    aheadNumEl.textContent = ahead;
+    waitNumEl.textContent = '~'+Math.round(wait)+' דק\'';
+
+    const start = performance.now();
+    const duration = 1100;
+    function tick(now){
+      const t = Math.min((now-start)/duration,1);
+      const eased = 1 - Math.pow(1-t,3);
+      const v = Math.floor(1 + (tour-1)*eased);
+      tourNumEl.textContent = '#'+String(v).padStart(2,'0');
+      if(t<1) requestAnimationFrame(tick);
+      else tourNumEl.textContent = '#'+String(tour).padStart(2,'0');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ============= MODAL =============
+  const modalBack = $('#modal-back');
+  const modalClose = $('#modal-close');
+  const modalTitle = $('#modal-title');
+  const modalBody = $('#modal-body');
+
+  const modalContent = {
+    terms:{
+      title:'תנאי שימוש',
+      body:`
+        <h5>1. כללי</h5>
+        <p>ברוכים הבאים לדף הנחיתה של ENAV. השימוש בשירות זה כפוף לתנאים המפורטים להלן. הגלישה והשארת הפרטים מהוות הסכמה לתנאים אלו.</p>
+        <h5>2. השירות</h5>
+        <p>השירות נועד לאפשר למשתתפי כנס הנדל"ן להירשם לתור צילום בלעדי וכן לקבל מידע על פרויקטים של ENAV. אין באמור משום הצעה מחייבת.</p>
+        <h5>3. אחריות</h5>
+        <p>החברה אינה מתחייבת לזמינות רציפה של השירות. תמונות, מחירים ופרטי פרויקטים הינם להמחשה בלבד וכפופים לשינויים.</p>
+        <h5>4. קניין רוחני</h5>
+        <p>כל הזכויות שמורות ל-ENAV. אין להעתיק, לשכפל או להפיץ תכנים ללא הסכמה בכתב.</p>
+        <h5>5. דין שיפוט</h5>
+        <p>על הסכם זה יחולו דיני מדינת ישראל. סמכות שיפוט בלעדית נתונה לבתי המשפט במחוז תל אביב.</p>
+      `
+    },
+    privacy:{
+      title:'מדיניות פרטיות',
+      body:`
+        <h5>איסוף מידע</h5>
+        <p>בעת מילוי הטופס אנו אוספים פרטים אישיים: שם מלא, מספר טלפון, אימייל (אופציונלי), עיר עניין ותקציב. המידע משמש ליצירת קשר וקידום ההתאמה האישית.</p>
+        <h5>שימוש במידע</h5>
+        <ul>
+          <li>יצירת קשר על ידי צוות ENAV או נציגי הפרויקטים</li>
+          <li>שליחת חומר שיווקי, הזמנות לסיורים ועדכונים</li>
+          <li>שיפור השירותים והתאמתם לצרכים שלך</li>
+        </ul>
+        <h5>שמירת מידע</h5>
+        <p>המידע נשמר במאגר מאובטח. אנו לא מעבירים פרטים לצדדים שלישיים שאינם קשורים לחברה, למעט אם נדרש על פי דין.</p>
+        <h5>הסרה מרשימת התפוצה</h5>
+        <p>תוכל לבקש הסרה בכל עת באמצעות פנייה ל-privacy@enav.co.il, או באמצעות לחיצה על "הסר" בהודעות שיווקיות.</p>
+        <h5>עוגיות (Cookies)</h5>
+        <p>האתר עושה שימוש בעוגיות לצורך שיפור חוויית המשתמש וניתוח תעבורה.</p>
+      `
+    },
+    accessibility:{
+      title:'הצהרת נגישות',
+      body:`
+        <h5>מחויבות לנגישות</h5>
+        <p>ENAV מחויבת להנגיש את שירותיה למגוון רחב של משתמשים, לרבות אנשים עם מוגבלויות, בהתאם לתקן ישראלי 5568.</p>
+        <h5>פניות בנושאי נגישות</h5>
+        <p>לפניות, הצעות לשיפור או דיווח על בעיה: accessibility@enav.co.il · 03-0000000</p>
+        <h5>פערים ידועים</h5>
+        <p>חלק מהתכנים הוויזואליים עשויים שלא להיות נגישים במלואם בעת חוויה במכשירים ישנים. אנו פועלים לסגירת פערים אלו.</p>
+      `
+    }
+  };
+
+  function openModal(key){
+    const m = modalContent[key];
+    if(!m) return;
+    modalTitle.textContent = m.title;
+    modalBody.innerHTML = m.body;
+    modalBack.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modalBack.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('[data-modal]').forEach(b=>{
+    b.addEventListener('click',(e)=>{
+      e.preventDefault();
+      openModal(b.dataset.modal);
+    });
+  });
+  modalClose.addEventListener('click', closeModal);
+  modalBack.addEventListener('click',(e)=>{
+    if(e.target === modalBack) closeModal();
+  });
+
+  // ============= INIT =============
+  setFloor(1);
+
+})();
+</script>
+
+</body>
+</html>
