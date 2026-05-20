@@ -1,78 +1,44 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
 import { asset } from "@/lib/asset";
 
 export function Hero() {
-  const v = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = v.current;
-    if (!video) return;
-
-    /* belt-and-suspenders: ensure the element is autoplay-eligible */
-    video.muted = true;
-    video.defaultMuted = true;
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "true");
-
-    const attemptPlay = () => {
-      const p = video.play();
-      if (p !== undefined) p.catch(() => {});
-    };
-
-    attemptPlay();
-
-    /* retry if the tab regains visibility */
-    const onVisibility = () => {
-      if (!document.hidden && video.paused) attemptPlay();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-
-    /* fallback: first user interaction kicks autoplay if the browser blocked it */
-    const onFirstInteract = () => {
-      if (video.paused) attemptPlay();
-    };
-    document.addEventListener("touchstart", onFirstInteract, {
-      once: true,
-      passive: true,
-    });
-    document.addEventListener("pointerdown", onFirstInteract, { once: true });
-
-    return () => {
-      document.removeEventListener("visibilitychange", onVisibility);
-      document.removeEventListener("touchstart", onFirstInteract);
-      document.removeEventListener("pointerdown", onFirstInteract);
-    };
-  }, []);
-
   return (
     <section id="hero" className="snap-section bg-navy">
-      <video
-        ref={v}
-        className="absolute inset-0 h-full w-full object-cover"
-        src={asset("/media/mp_.mp4")}
-        poster={asset("/media/Cam_Up-1_FIX-1-scaled.jpg")}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
+      {/* PDF building image — centered vertical strip, native aspect */}
+      <img
+        src={asset("/media/pdf_building.png")}
+        alt=""
+        className="absolute inset-y-0 left-1/2 h-full w-auto -translate-x-1/2"
       />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-navy via-navy/70 to-transparent" />
+      {/* soft top wash so the logo reads cleanly over the sky */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/70 to-transparent" />
 
-      {/* headline overlay — softer staggered fade, no blur */}
-      <div className="absolute inset-x-0 bottom-0 px-6 pb-16 sm:pb-24">
-        <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.9rem,13vw,4.1rem)] font-extralight leading-[1.06] tracking-[-0.028em] text-balance">
+      {/* large ENAV logo */}
+      <motion.img
+        src={asset("/media/logo.png")}
+        alt="ENAV"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute left-1/2 top-14 z-10 h-20 w-auto -translate-x-1/2"
+        style={{ filter: "brightness(0) invert(1)" }}
+      />
+
+      {/* bottom wash for the headline */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-navy via-navy/80 to-transparent" />
+
+      {/* headline at the bottom */}
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-14 sm:pb-20">
+        <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.6rem,12vw,3.7rem)] font-extralight leading-[1.07] tracking-[-0.025em] text-balance">
           <motion.span
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1.5,
-              delay: 0.5,
+              delay: 0.55,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="block"

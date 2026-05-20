@@ -25,7 +25,7 @@ export function Form({
     name: "",
     phone: "",
     email: "",
-    consent: false,
+    consent: true,
   });
   const [touched, setTouched] = useState<Partial<Record<keyof LeadData, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -122,7 +122,7 @@ export function Form({
             />
           </Field>
 
-          <label className="mt-7 flex items-start gap-3 text-right text-[11.5px] font-light leading-[1.55] text-white/72">
+          <label className="mt-7 flex items-start gap-3 text-right text-[11px] font-light leading-[1.65] text-white/75">
             <input
               type="checkbox"
               checked={data.consent}
@@ -133,15 +133,15 @@ export function Form({
               className="check-box"
             />
             <span>
-              אני מסכימ/ה לקבלת תוכן שיווקי מ-ENAV ול
+              {`מאשר/ת קבלת חומר פרסומי ומידע ענב יזום ניהול ש.ר ו/או מכל החברות הקשורות בה לרבות חברות בת ו/או שותפויות מטעמה ו/או כל חברה קשורה אחרת, בדוא"ל ו/או SMS ו/או שיחות שיווק טלפוני וכיוצ"ב גם אם אחד ממספרי הטלפון שלי רשום במאגר "אל תתקשרו אליי" ומסכים/ה ל`}
               <button
                 type="button"
                 onClick={() => setLegalOpen("terms")}
                 className="underline underline-offset-2"
               >
-                תנאי השימוש
-              </button>{" "}
-              ו
+                תקנון
+              </button>
+              {" ול"}
               <button
                 type="button"
                 onClick={() => setLegalOpen("privacy")}
@@ -149,7 +149,7 @@ export function Form({
               >
                 מדיניות הפרטיות
               </button>
-              .
+              {`. ניתן להסרה.`}
               {touched.consent && !data.consent && (
                 <span className="ms-2 text-white/45">— נדרש אישור</span>
               )}

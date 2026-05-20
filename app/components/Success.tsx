@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { asset } from "@/lib/asset";
-import { FormBuilding } from "./FormBuilding";
 
 const CITY_LABELS: Record<string, string> = {
   "ramat-gan": "רמת גן",
@@ -21,13 +20,12 @@ const INTENT_LABELS: Record<string, string> = {
 };
 
 export function Success({
-  position,
   name,
   intent,
   budget,
   cities,
 }: {
-  position: number;
+  position?: number;
   name: string;
   slotTime?: string;
   intent: string | null;
@@ -48,41 +46,33 @@ export function Success({
       transition={{ duration: 0.55 }}
       className="fixed inset-0 z-[60] overflow-y-auto bg-navy"
     >
-      <div className="pointer-events-none absolute inset-0">
-        <img
-          src={asset("/media/tkuma-ks-ap-pool-c01_0-6-scaled.jpg")}
-          alt=""
-          className="h-full w-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/85 to-navy" />
-      </div>
-
-      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-14">
-        {/* ENAV logo — centered, prominent */}
+      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col px-6 pb-16 pt-14">
+        {/* ENAV logo — large, centered */}
         <motion.img
           src={asset("/media/logo.png")}
           alt="ENAV"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto h-14 w-auto"
+          className="mx-auto h-20 w-auto"
           style={{ filter: "brightness(0) invert(1)" }}
         />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        {/* Building image from PDF */}
+        <motion.img
+          src={asset("/media/pdf_building.png")}
+          alt=""
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 flex justify-center"
-        >
-          <FormBuilding step={4} complete={true} />
-        </motion.div>
+          transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-8 h-[32svh] min-h-[230px] max-h-[300px] w-auto"
+        />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-7 text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="mt-8 text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
         >
           המקום שלך אושר
         </motion.p>
@@ -90,36 +80,31 @@ export function Success({
         <motion.h2
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mt-4 text-center font-display text-[clamp(1.9rem,7.5vw,2.4rem)] font-extralight leading-tight tracking-[-0.018em]"
         >
           {first ? `${first}, ` : ""}תורך מובטח.
         </motion.h2>
 
+        {/* combined value statement + WhatsApp notice */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
           className="mx-auto mt-5 max-w-[34ch] text-center text-[13.5px] font-light leading-[1.65] text-white/80 text-balance"
         >
           מקומך הובטח בעמדת הצילום של ENAV.
           <br />
-          <span className="text-white">מזכרת ייחודית במינה</span> בדרך לבית החדש שלך.
+          <span className="text-white">מזכרת ייחודית</span> בדרך לבית החדש שלך.
+          <br />
+          מיד נשלח אליך לוואטסאפ את מיקומך בתור.
         </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1.2 }}
-          className="mx-auto mt-4 max-w-[32ch] text-center text-[11.5px] font-light leading-[1.7] text-white/45"
-        >
-          בקרוב נשלח אלייך הודעת ווטסאפ עם כל הפרטים.
-        </motion.p>
-
+        {/* preferences (no queue position row) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.4 }}
+          transition={{ duration: 0.7, delay: 1.2 }}
           className="mx-auto mt-10 w-full max-w-[340px]"
         >
           <div className="mb-3 text-center text-[10px] font-light uppercase tracking-[0.32em] text-white/40">
@@ -141,21 +126,16 @@ export function Success({
               hint={
                 cities.length > 3 ? `+ ${cities.length - 3} נוספות` : undefined
               }
-            />
-            <Row
-              label="מיקום בתור"
-              value={`#${String(position).padStart(2, "0")}`}
-              mono
               last
             />
           </dl>
         </motion.div>
 
-        {/* ENAV phone — from the brand PDFs */}
+        {/* phone footer */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1.7 }}
+          transition={{ duration: 0.7, delay: 1.45 }}
           className="mx-auto mt-10 flex items-center justify-center gap-2 border-t border-white/12 pt-6 text-[13.5px] font-light text-white/70"
         >
           <span>לפרטים נוספים חייגו</span>
@@ -175,13 +155,11 @@ function Row({
   label,
   value,
   hint,
-  mono = false,
   last = false,
 }: {
   label: string;
   value: string;
   hint?: string;
-  mono?: boolean;
   last?: boolean;
 }) {
   return (
@@ -192,13 +170,7 @@ function Row({
         {label}
       </dt>
       <dd className="text-right">
-        <span
-          className={
-            mono ? "tabular text-[16px] font-light" : "text-[14px] font-light"
-          }
-        >
-          {value}
-        </span>
+        <span className="text-[14px] font-light">{value}</span>
         {hint && (
           <span className="ms-1.5 text-[10px] font-light text-white/35">
             {hint}

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Topbar } from "./Topbar";
 import { Hero } from "./Hero";
 import { Intro } from "./Intro";
 import { Questions, type Answers } from "./Questions";
@@ -70,7 +69,6 @@ export function Page() {
 
   return (
     <>
-      <Topbar />
       <main ref={scrollerRef} className="snap-scroll">
         <Hero />
         <Intro onNext={onIntroNext} />
