@@ -97,19 +97,31 @@ export function Success({
           {first ? `${first}, ` : ""}תורך מובטח.
         </motion.h2>
 
+        {/* what's going to happen — value statement */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.95 }}
-          className="mx-auto mt-3 max-w-[30ch] text-center text-[13px] font-light leading-[1.7] text-white/55"
+          transition={{ duration: 0.7, delay: 1 }}
+          className="mx-auto mt-5 max-w-[34ch] text-center text-[13.5px] font-light leading-[1.65] text-white/80 text-balance"
         >
-          נשלח אלייך SMS לפני מועד הצילום.
+          מקומך הובטח בעמדת הצילום של ENAV.
+          <br />
+          <span className="text-white">מזכרת ייחודית במינה</span> בדרך לבית החדש שלך.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 1.2 }}
+          className="mx-auto mt-4 max-w-[30ch] text-center text-[11.5px] font-light leading-[1.7] text-white/40"
+        >
+          נשלח אלייך SMS לפני המועד.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
+          transition={{ duration: 0.7, delay: 1.4 }}
           className="mx-auto mt-10 w-full max-w-[340px]"
         >
           <div className="mb-3 text-center text-[10px] font-light uppercase tracking-[0.32em] text-white/40">

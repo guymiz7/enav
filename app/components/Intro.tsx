@@ -25,7 +25,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
             הזמנה אישית
           </motion.p>
 
-          <h2 className="text-right font-display text-[clamp(2.1rem,9vw,2.9rem)] font-extralight leading-[1.18] tracking-[-0.028em] text-balance">
+          <h2 className="text-right font-display text-[clamp(1.7rem,7.2vw,2.3rem)] font-extralight leading-[1.22] tracking-[-0.025em] text-balance">
             <motion.span
               initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
               }}
               className="block"
             >
-              מלאו את הפרטים בדקה
+              הקדישו דקה מזמנכם
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 6 }}
@@ -45,12 +45,12 @@ export function Intro({ onNext }: { onNext: () => void }) {
               viewport={{ once: false, amount: 0.4 }}
               transition={{
                 duration: 1.4,
-                delay: 0.6,
+                delay: 0.55,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="block"
             >
-              והכנסו לתור
+              למילוי הפרטים
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 6 }}
@@ -58,12 +58,25 @@ export function Intro({ onNext }: { onNext: () => void }) {
               viewport={{ once: false, amount: 0.4 }}
               transition={{
                 duration: 1.4,
-                delay: 0.95,
+                delay: 0.85,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="block"
+            >
+              והבטיחו את מקומכם
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.4 }}
+              transition={{
+                duration: 1.4,
+                delay: 1.15,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="mt-1 block font-light text-white"
             >
-              לחוויה בלתי נשכחת
+              בחוייה בלתי נשכחת
             </motion.span>
           </h2>
 
@@ -73,9 +86,9 @@ export function Intro({ onNext }: { onNext: () => void }) {
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
-            transition={{ duration: 1.2, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
             whileTap={{ scale: 0.97 }}
-            className="mt-12 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-black transition active:bg-white/90"
+            className="mt-10 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-black transition active:bg-white/90"
           >
             קחו אותי לחוויה
           </motion.button>
