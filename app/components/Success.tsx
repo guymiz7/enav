@@ -23,14 +23,13 @@ const INTENT_LABELS: Record<string, string> = {
 export function Success({
   position,
   name,
-  slotTime,
   intent,
   budget,
   cities,
 }: {
   position: number;
   name: string;
-  slotTime: string;
+  slotTime?: string;
   intent: string | null;
   budget: string | null;
   cities: string[];
@@ -58,23 +57,24 @@ export function Success({
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/85 to-black" />
       </div>
 
-      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 pb-14 pt-20">
-        {/* ENAV logo at the top */}
+      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-16">
+        {/* ENAV logo — centered, prominent */}
         <motion.img
           src={asset("/media/logo.png")}
           alt="ENAV"
-          initial={{ opacity: 0, y: -6 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-1/2 top-6 h-9 w-auto -translate-x-1/2"
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto h-14 w-auto"
           style={{ filter: "brightness(0) invert(1)" }}
         />
 
+        {/* completed building */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 flex justify-center"
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 flex justify-center"
         >
           <FormBuilding step={4} complete={true} />
         </motion.div>
@@ -82,26 +82,17 @@ export function Success({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-8 text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
         >
           המקום שלך אושר
         </motion.p>
 
-        <motion.p
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.9, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 text-center font-display text-[clamp(4.2rem,19vw,5.8rem)] font-extralight leading-none tabular tracking-[-0.045em]"
-        >
-          {slotTime}
-        </motion.p>
-
         <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.85 }}
-          className="mt-8 text-center font-display text-[1.5rem] font-extralight leading-tight"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-5 text-center font-display text-[clamp(1.9rem,7.5vw,2.4rem)] font-extralight leading-tight tracking-[-0.018em]"
         >
           {first ? `${first}, ` : ""}תורך מובטח.
         </motion.h2>
@@ -109,16 +100,16 @@ export function Success({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1.05 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
           className="mx-auto mt-3 max-w-[30ch] text-center text-[13px] font-light leading-[1.7] text-white/55"
         >
-          נשלח אלייך SMS דקות לפני המועד.
+          נשלח אלייך SMS לפני מועד הצילום.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.2 }}
+          transition={{ duration: 0.7, delay: 1.1 }}
           className="mx-auto mt-10 w-full max-w-[340px]"
         >
           <div className="mb-3 text-center text-[10px] font-light uppercase tracking-[0.32em] text-white/40">

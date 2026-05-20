@@ -95,12 +95,13 @@ export function Form({
   const [legalOpen, setLegalOpen] = useState<"terms" | "privacy" | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  /* 10-second looping countdown. Smooth bar drains alongside an integer display. */
-  const secondsMV = useMotionValue(10);
+  /* 30-second looping countdown. Smooth bar drains alongside an integer display. */
+  const COUNTDOWN_SECS = 30;
+  const secondsMV = useMotionValue(COUNTDOWN_SECS);
   const widthPct = useTransform(secondsMV, (v) =>
-    `${Math.max(0, (v / 10) * 100)}%`
+    `${Math.max(0, (v / COUNTDOWN_SECS) * 100)}%`
   );
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(COUNTDOWN_SECS);
 
   useEffect(() => {
     let cancelled = false;
@@ -108,9 +109,9 @@ export function Form({
 
     const tick = () => {
       if (cancelled) return;
-      secondsMV.set(10);
+      secondsMV.set(COUNTDOWN_SECS);
       controls = animate(secondsMV, 0, {
-        duration: 10,
+        duration: COUNTDOWN_SECS,
         ease: "linear",
         onUpdate: (v) => setSeconds(Math.max(0, Math.ceil(v))),
         onComplete: () => {
