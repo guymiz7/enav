@@ -33,7 +33,7 @@ const QUESTIONS: Q[] = [
   {
     id: "budget",
     kicker: "התקציב",
-    prompt: "באיזה טווח?",
+    prompt: "מה טווח המחירים שלך?",
     image: "/media/AVIR_0123_-scaled.jpg",
     options: [
       { value: "2", label: "₪2 מיליון" },
@@ -230,60 +230,53 @@ function ChoiceRow({
     <motion.button
       type="button"
       onClick={onClick}
-      whileTap={{ scale: 0.985 }}
+      whileTap={{ scale: 0.975 }}
+      whileHover={{ x: -2 }}
       className={cn(
-        "group relative flex w-full items-center justify-between gap-3 border px-5 py-5 text-right transition-all duration-300",
+        "group relative block w-full overflow-hidden border px-5 py-5 text-right transition-colors duration-300",
         active
-          ? "border-white bg-white/[0.05]"
-          : "border-white/15 hover:border-white/40"
+          ? "border-white bg-white/[0.08]"
+          : "border-white/18 hover:border-white/55 hover:bg-white/[0.025]"
       )}
     >
-      <div className="flex flex-col items-start">
+      {/* RTL-start accent bar on the right edge */}
+      <motion.span
+        aria-hidden
+        initial={false}
+        animate={{
+          scaleY: active ? 1 : 0.18,
+          opacity: active ? 1 : 0,
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-y-0 right-0 w-[3px] origin-center bg-white"
+      />
+
+      {/* hover sweep — barely perceptible diagonal highlight from right to left on hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-[-30%] w-[30%] -skew-x-12 bg-gradient-to-l from-white/0 via-white/[0.06] to-white/0 opacity-0 transition-all duration-700 group-hover:right-full group-hover:opacity-100"
+      />
+
+      <div className="flex flex-col items-end gap-0.5">
         <span
           className={cn(
-            "text-[17px] transition-colors",
-            active ? "font-medium text-white" : "font-light text-white/85"
+            "text-[17px] transition-colors duration-300",
+            active ? "font-medium text-white" : "font-light text-white/88"
           )}
         >
           {label}
         </span>
         {hint && (
-          <span className="mt-0.5 text-[11px] font-light text-white/40">
+          <span
+            className={cn(
+              "text-[11px] font-light transition-colors duration-300",
+              active ? "text-white/65" : "text-white/40"
+            )}
+          >
             {hint}
           </span>
         )}
       </div>
-      <span
-        className={cn(
-          "relative flex h-5 w-5 items-center justify-center rounded-full border transition-all duration-300",
-          active
-            ? "border-white bg-white"
-            : "border-white/30 bg-transparent"
-        )}
-      >
-        <AnimatePresence>
-          {active && (
-            <motion.svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <path
-                d="M2.5 6L5 8.5L9.5 3.5"
-                stroke="#102B4B"
-                strokeWidth="1.6"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </motion.svg>
-          )}
-        </AnimatePresence>
-      </span>
     </motion.button>
   );
 }
@@ -303,40 +296,47 @@ function CityChip({
     <motion.button
       type="button"
       onClick={onClick}
-      whileTap={{ scale: 0.97 }}
+      whileTap={{ scale: 0.96 }}
+      whileHover={{ x: -2 }}
       className={cn(
-        "group relative flex flex-col items-end gap-1 border px-3 py-2.5 text-right transition-all duration-250",
+        "group relative block overflow-hidden border px-3.5 py-3 text-right transition-colors duration-300",
         active
-          ? "border-white bg-white/[0.05]"
-          : "border-white/15 hover:border-white/40"
+          ? "border-white bg-white/[0.08]"
+          : "border-white/18 hover:border-white/55 hover:bg-white/[0.03]"
       )}
     >
-      <span className="flex w-full items-center justify-between">
-        <span
-          className={cn(
-            "h-2 w-2 rounded-full transition-all duration-300",
-            active ? "bg-white" : "bg-white/15"
-          )}
-        />
+      {/* RTL-start accent bar */}
+      <motion.span
+        aria-hidden
+        initial={false}
+        animate={{
+          scaleY: active ? 1 : 0.18,
+          opacity: active ? 1 : 0,
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-y-0 right-0 w-[2.5px] origin-center bg-white"
+      />
+
+      <div className="flex flex-col items-end gap-0.5">
         {tag && (
           <span
             className={cn(
-              "text-[9px] uppercase tracking-[0.2em] transition",
-              active ? "text-white/70" : "text-white/35"
+              "text-[9px] uppercase tracking-[0.2em] transition-colors duration-300",
+              active ? "text-white/72" : "text-white/35"
             )}
           >
             {tag}
           </span>
         )}
-      </span>
-      <span
-        className={cn(
-          "text-[14px] leading-tight transition-colors",
-          active ? "font-medium text-white" : "font-light text-white/82"
-        )}
-      >
-        {label}
-      </span>
+        <span
+          className={cn(
+            "text-[14.5px] leading-tight transition-colors duration-300",
+            active ? "font-medium text-white" : "font-light text-white/85"
+          )}
+        >
+          {label}
+        </span>
+      </div>
     </motion.button>
   );
 }

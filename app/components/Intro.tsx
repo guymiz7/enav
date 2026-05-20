@@ -25,7 +25,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
             הזמנה אישית
           </motion.p>
 
-          <h2 className="text-right font-display text-[clamp(1.7rem,7.2vw,2.3rem)] font-extralight leading-[1.22] tracking-[-0.025em] text-balance">
+          <h2 className="text-right font-display text-[clamp(1.3rem,5.5vw,1.9rem)] font-extralight leading-[1.3] tracking-[-0.02em] text-balance">
             <motion.span
               initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -45,12 +45,12 @@ export function Intro({ onNext }: { onNext: () => void }) {
               viewport={{ once: false, amount: 0.4 }}
               transition={{
                 duration: 1.4,
-                delay: 0.55,
+                delay: 0.6,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="block"
+              className="block whitespace-nowrap"
             >
-              למילוי הפרטים
+              למילוי הפרטים, והבטיחו את מקומכם
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 6 }}
@@ -58,25 +58,12 @@ export function Intro({ onNext }: { onNext: () => void }) {
               viewport={{ once: false, amount: 0.4 }}
               transition={{
                 duration: 1.4,
-                delay: 0.85,
+                delay: 0.95,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="block"
+              className="mt-1 block font-bold text-white"
             >
-              והבטיחו את מקומכם
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.4 }}
-              transition={{
-                duration: 1.4,
-                delay: 1.15,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="mt-1 block font-light text-white"
-            >
-              בחוייה בלתי נשכחת
+              בחוויה בלתי נשכחת
             </motion.span>
           </h2>
 

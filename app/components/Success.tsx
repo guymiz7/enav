@@ -111,9 +111,9 @@ export function Success({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.2 }}
-          className="mx-auto mt-4 max-w-[30ch] text-center text-[11.5px] font-light leading-[1.7] text-white/40"
+          className="mx-auto mt-4 max-w-[32ch] text-center text-[11.5px] font-light leading-[1.7] text-white/45"
         >
-          נשלח אלייך SMS לפני המועד.
+          בקרוב נשלח אלייך הודעת ווטסאפ עם כל הפרטים.
         </motion.p>
 
         <motion.div
@@ -152,22 +152,20 @@ export function Success({
         </motion.div>
 
         {/* ENAV phone — from the brand PDFs */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.7 }}
-          className="mx-auto mt-10 flex flex-col items-center gap-2 border-t border-white/12 pt-6"
+          className="mx-auto mt-10 flex items-center justify-center gap-2 border-t border-white/12 pt-6 text-[13.5px] font-light text-white/70"
         >
-          <span className="text-[10px] font-light uppercase tracking-[0.32em] text-white/45">
-            לפרטים נוספים
-          </span>
+          <span>לפרטים נוספים חייגו</span>
           <a
             href="tel:*3989"
-            className="font-display text-[clamp(1.8rem,7vw,2.1rem)] font-light tracking-[0.04em] tabular text-white hover:text-white/85"
+            className="font-display text-[15px] font-medium tracking-[0.04em] tabular text-white hover:text-white/85"
           >
             *3989
           </a>
-        </motion.div>
+        </motion.p>
       </div>
     </motion.div>
   );

@@ -3,22 +3,20 @@
 import { motion } from "framer-motion";
 
 /**
- * Architectural illustration of a residential tower.
- *  Foundation/lobby — always visible.
- *  3 stacked floor zones — each contains a 3×3 grid of windows that
- *    light up sequentially as that stage is completed.
- *  Penthouse / mechanical floor / antenna — appear at stage 4.
+ * Slim residential tower — modeled after the Cam_Up reference photo.
+ * 12 floors with visible balcony lines, two-window-per-floor layout,
+ * penthouse setback, mechanical floor, antenna with aviation light.
  *
- * step = 1..4 (current stage); complete = the user submitted.
+ * As `step` advances (or `complete` is true), floors "light up" from
+ * bottom to top — windows fill in, balcony lines and outlines brighten.
  */
 
-const COLS = 3;
-
-const ZONES = [
-  { threshold: 1, x: 22, y: 248, width: 76, height: 50, rows: 3 },
-  { threshold: 2, x: 22, y: 198, width: 76, height: 50, rows: 3 },
-  { threshold: 3, x: 22, y: 148, width: 76, height: 50, rows: 3 },
-] as const;
+const FLOORS = 12;
+const TOWER_X = 26;
+const TOWER_WIDTH = 48;
+const TOWER_TOP = 82;
+const TOWER_BOTTOM = 296;
+const FLOOR_H = (TOWER_BOTTOM - TOWER_TOP) / FLOORS;
 
 export function FormBuilding({
   step,
@@ -27,321 +25,257 @@ export function FormBuilding({
   step: number;
   complete: boolean;
 }) {
+  const litFloors = complete
+    ? FLOORS
+    : Math.max(0, Math.floor(((step - 1) * FLOORS) / 3));
+
   return (
     <svg
-      viewBox="0 0 120 320"
+      viewBox="0 0 100 340"
       preserveAspectRatio="xMidYEnd meet"
-      className="h-[24svh] min-h-[180px] max-h-[220px] w-auto"
+      className="h-[26svh] min-h-[210px] max-h-[260px] w-auto"
       fill="none"
     >
-      {/* sidewalk line */}
+      {/* sidewalk */}
       <line
         x1="0"
-        y1="316"
-        x2="120"
-        y2="316"
+        y1="320"
+        x2="100"
+        y2="320"
         stroke="white"
-        strokeOpacity="0.45"
+        strokeOpacity="0.42"
+        strokeWidth="0.5"
       />
 
-      {/* foundation / lobby — always present */}
+      {/* lobby (always present, dimly lit) */}
       <g>
         <rect
-          x="14"
-          y="298"
-          width="92"
-          height="18"
+          x="18"
+          y="296"
+          width="64"
+          height="24"
+          stroke="white"
+          strokeOpacity="0.65"
+          strokeWidth="0.9"
+        />
+        {/* canopy */}
+        <line
+          x1="40"
+          y1="299"
+          x2="60"
+          y2="299"
           stroke="white"
           strokeOpacity="0.55"
-          strokeWidth="1"
+          strokeWidth="0.6"
         />
-        {/* lobby door */}
+        {/* central door */}
         <rect
-          x="56"
-          y="301"
+          x="46"
+          y="299"
           width="8"
-          height="15"
+          height="21"
           fill="rgba(255,255,255,0.22)"
         />
-        {/* canopy over the door */}
-        <line
-          x1="50"
-          y1="301"
-          x2="70"
-          y2="301"
-          stroke="white"
-          strokeOpacity="0.55"
-          strokeWidth="0.8"
-        />
-        {/* side lobby windows */}
+        {/* side glass storefront */}
         <rect
           x="22"
           y="304"
-          width="28"
-          height="9"
-          fill="rgba(255,255,255,0.13)"
+          width="22"
+          height="12"
+          fill="rgba(255,255,255,0.14)"
         />
         <rect
-          x="70"
+          x="56"
           y="304"
-          width="28"
-          height="9"
-          fill="rgba(255,255,255,0.13)"
+          width="22"
+          height="12"
+          fill="rgba(255,255,255,0.14)"
         />
       </g>
 
-      {/* tower floor zones - stages 1-3 */}
-      {ZONES.map((z) => (
-        <FloorZone
-          key={z.threshold}
-          step={step}
-          complete={complete}
-          threshold={z.threshold}
-          x={z.x}
-          y={z.y}
-          width={z.width}
-          height={z.height}
-          cols={COLS}
-          rows={z.rows}
-        />
-      ))}
+      {/* podium / transition slab (between lobby and tower) */}
+      <line
+        x1="14"
+        y1="296"
+        x2="86"
+        y2="296"
+        stroke="white"
+        strokeOpacity="0.55"
+        strokeWidth="0.7"
+      />
 
-      {/* crown - penthouse + mechanical + antenna (stage 4) */}
-      <Crown step={step} complete={complete} />
+      {/* tower floors */}
+      {Array.from({ length: FLOORS }).map((_, i) => {
+        const floorY = TOWER_BOTTOM - (i + 1) * FLOOR_H;
+        const lit = i < litFloors;
+        return <TowerFloor key={i} y={floorY} lit={lit} delay={lit ? i * 0.05 : 0} />;
+      })}
+
+      {/* penthouse + mechanical + antenna */}
+      <Crown lit={complete || step >= 4} />
     </svg>
   );
 }
 
-function FloorZone({
-  step,
-  complete,
-  threshold,
-  x,
+function TowerFloor({
   y,
-  width,
-  height,
-  cols,
-  rows,
+  lit,
+  delay,
 }: {
-  step: number;
-  complete: boolean;
-  threshold: number;
-  x: number;
   y: number;
-  width: number;
-  height: number;
-  cols: number;
-  rows: number;
+  lit: boolean;
+  delay: number;
 }) {
-  const built = complete || step > threshold;
-  const constructing = !complete && step === threshold;
-  const visible = built || constructing;
-
-  const margin = 4;
-  const gap = 2;
-  const winW = (width - 2 * margin - (cols - 1) * gap) / cols;
-  const winH = (height - 2 * margin - (rows - 1) * gap) / rows;
-
-  /* index windows in cascade order: bottom-row first, left→right, then up */
-  const windows: { x: number; y: number; idx: number }[] = [];
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const wx = x + margin + col * (winW + gap);
-      const wy = y + margin + (rows - 1 - row) * (winH + gap);
-      windows.push({ x: wx, y: wy, idx: row * cols + col });
-    }
-  }
-
+  const halfWin = (TOWER_WIDTH - 8) / 2;
   return (
-    <motion.g
-      initial={false}
-      animate={{
-        opacity: built ? 1 : constructing ? 0.95 : 0.08,
-        y: visible ? 0 : 18,
-      }}
-      transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {/* zone outline (also serves as floor breaks between zones) */}
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
+    <g>
+      {/* slab / balcony line below the floor — protrudes beyond tower edges */}
+      <line
+        x1={TOWER_X - 4}
+        y1={y + FLOOR_H}
+        x2={TOWER_X + TOWER_WIDTH + 4}
+        y2={y + FLOOR_H}
         stroke="white"
-        strokeOpacity={built ? 0.85 : 0.6}
-        strokeWidth="1"
+        strokeOpacity={lit ? 0.55 : 0.16}
+        strokeWidth="0.6"
       />
 
-      {/* horizontal floor lines inside the zone — slightly protrude as balcony hints */}
-      {Array.from({ length: rows - 1 }).map((_, i) => {
-        const sepY = y + margin + (i + 1) * winH + i * gap + gap / 2;
-        return (
-          <line
-            key={`sep-${i}`}
-            x1={x - 2}
-            y1={sepY}
-            x2={x + width + 2}
-            y2={sepY}
-            stroke="white"
-            strokeOpacity={built ? 0.32 : 0.14}
-            strokeWidth="0.6"
-          />
-        );
-      })}
+      {/* floor outline (skeleton always visible, brighter when lit) */}
+      <rect
+        x={TOWER_X}
+        y={y}
+        width={TOWER_WIDTH}
+        height={FLOOR_H}
+        stroke="white"
+        strokeOpacity={lit ? 0.5 : 0.18}
+        strokeWidth="0.45"
+      />
 
-      {/* vertical structural columns between apartments */}
-      {Array.from({ length: cols - 1 }).map((_, i) => {
-        const colX = x + margin + (i + 1) * winW + i * gap + gap / 2;
-        return (
-          <line
-            key={`col-${i}`}
-            x1={colX}
-            y1={y}
-            x2={colX}
-            y2={y + height}
-            stroke="white"
-            strokeOpacity={built ? 0.18 : 0.08}
-            strokeWidth="0.5"
-          />
-        );
-      })}
+      {/* central structural column */}
+      <line
+        x1={TOWER_X + TOWER_WIDTH / 2}
+        y1={y}
+        x2={TOWER_X + TOWER_WIDTH / 2}
+        y2={y + FLOOR_H}
+        stroke="white"
+        strokeOpacity={lit ? 0.22 : 0.07}
+        strokeWidth="0.4"
+      />
 
-      {/* windows — light up sequentially */}
-      {windows.map((w) => (
-        <motion.rect
-          key={w.idx}
-          x={w.x}
-          y={w.y}
-          width={winW}
-          height={winH}
-          fill="white"
-          initial={false}
-          animate={{
-            fillOpacity: built ? 0.5 : constructing ? 0.16 : 0,
-          }}
-          transition={{
-            duration: 0.55,
-            delay: built ? 0.4 + w.idx * 0.06 : 0,
-          }}
-        />
-      ))}
+      {/* left apartment window */}
+      <motion.rect
+        x={TOWER_X + 3}
+        y={y + 2.2}
+        width={halfWin}
+        height={FLOOR_H - 4.4}
+        fill="white"
+        initial={false}
+        animate={{ fillOpacity: lit ? 0.48 : 0.05 }}
+        transition={{ duration: 0.55, delay }}
+      />
 
-      {/* scaffold sweep on the active floor */}
-      {constructing && (
-        <motion.line
-          x1={x - 4}
-          x2={x + width + 4}
-          stroke="white"
-          strokeOpacity="0.7"
-          strokeWidth="0.7"
-          animate={{ y1: [y + height - 2, y + 2], y2: [y + height - 2, y + 2] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
-        />
-      )}
-    </motion.g>
+      {/* right apartment window */}
+      <motion.rect
+        x={TOWER_X + TOWER_WIDTH / 2 + 1}
+        y={y + 2.2}
+        width={halfWin}
+        height={FLOOR_H - 4.4}
+        fill="white"
+        initial={false}
+        animate={{ fillOpacity: lit ? 0.48 : 0.05 }}
+        transition={{ duration: 0.55, delay: delay + 0.06 }}
+      />
+    </g>
   );
 }
 
-function Crown({ step, complete }: { step: number; complete: boolean }) {
-  const built = complete;
-  const constructing = !complete && step === 4;
-  const visible = built || constructing;
-
+function Crown({ lit }: { lit: boolean }) {
   return (
     <motion.g
       initial={false}
-      animate={{
-        opacity: built ? 1 : constructing ? 0.88 : 0.08,
-        y: visible ? 0 : 14,
-      }}
-      transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ opacity: lit ? 1 : 0.12, y: lit ? 0 : 10 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* penthouse — setback from main tower */}
       <rect
-        x="28"
-        y="120"
-        width="64"
-        height="28"
+        x="32"
+        y="60"
+        width="36"
+        height="22"
         stroke="white"
         strokeOpacity="0.85"
-        strokeWidth="1"
+        strokeWidth="0.9"
       />
-      {/* penthouse 3 large windows */}
-      {[0, 1, 2].map((i) => (
-        <motion.rect
-          key={i}
-          x={32 + i * 19}
-          y={126}
-          width={15}
-          height={16}
-          fill="white"
-          initial={false}
-          animate={{
-            fillOpacity: built ? 0.58 : constructing ? 0.22 : 0,
-          }}
-          transition={{ duration: 0.55, delay: built ? 0.45 + i * 0.08 : 0 }}
-        />
-      ))}
-
-      {/* mechanical floor — narrower setback */}
-      <rect
-        x="38"
-        y="100"
-        width="44"
-        height="20"
+      {/* penthouse balcony slab */}
+      <line
+        x1="28"
+        y1="82"
+        x2="72"
+        y2="82"
         stroke="white"
-        strokeOpacity="0.8"
-        strokeWidth="1"
+        strokeOpacity="0.6"
+        strokeWidth="0.6"
       />
-      {/* mech floor louvers (thin horizontal lines) */}
-      {[105, 110, 115].map((cy, i) => (
-        <line
-          key={i}
-          x1={42}
-          y1={cy}
-          x2={78}
-          y2={cy}
-          stroke="white"
-          strokeOpacity={built ? 0.35 : 0.18}
-          strokeWidth="0.5"
-        />
-      ))}
+      {/* penthouse single large glass */}
+      <motion.rect
+        x="35"
+        y="63"
+        width="30"
+        height="15"
+        fill="white"
+        initial={false}
+        animate={{ fillOpacity: lit ? 0.52 : 0.06 }}
+        transition={{ duration: 0.55, delay: lit ? 0.35 : 0 }}
+      />
 
-      {/* antenna housing / elevator overrun */}
+      {/* mechanical floor / elevator overrun */}
       <rect
-        x="52"
-        y="82"
+        x="42"
+        y="42"
         width="16"
         height="18"
         stroke="white"
         strokeOpacity="0.75"
-        strokeWidth="0.9"
+        strokeWidth="0.75"
       />
+      {/* mech louvres */}
+      {[46.5, 50, 53.5, 57].map((cy, i) => (
+        <line
+          key={i}
+          x1="44"
+          y1={cy}
+          x2="56"
+          y2={cy}
+          stroke="white"
+          strokeOpacity={lit ? 0.35 : 0.1}
+          strokeWidth="0.35"
+        />
+      ))}
 
       {/* antenna mast */}
       <motion.line
-        x1="60"
-        y1="82"
-        x2="60"
-        y2="50"
+        x1="50"
+        y1="42"
+        x2="50"
+        y2="16"
         stroke="white"
-        strokeOpacity="0.9"
-        strokeWidth="1"
+        strokeOpacity="0.85"
+        strokeWidth="0.7"
         initial={false}
-        animate={{ pathLength: visible ? 1 : 0 }}
-        transition={{ duration: 0.7, delay: visible ? 0.65 : 0 }}
+        animate={{ pathLength: lit ? 1 : 0 }}
+        transition={{ duration: 0.7, delay: lit ? 0.55 : 0 }}
       />
 
-      {/* aviation warning light at the top */}
-      <circle cx="60" cy="50" r="1.6" fill="white" fillOpacity={built ? 1 : 0.5} />
-      {constructing && (
+      {/* aviation warning light */}
+      <circle cx="50" cy="16" r="1.4" fill="white" fillOpacity={lit ? 1 : 0.3} />
+      {lit && (
         <motion.circle
-          cx="60"
-          cy="50"
-          r="3"
+          cx="50"
+          cy="16"
+          r="2.4"
           fill="white"
-          animate={{ opacity: [0.9, 0.15, 0.9] }}
-          transition={{ duration: 1.1, repeat: Infinity }}
+          animate={{ opacity: [0.6, 0.05, 0.6] }}
+          transition={{ duration: 1.4, repeat: Infinity }}
         />
       )}
     </motion.g>
