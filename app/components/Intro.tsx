@@ -20,16 +20,12 @@ export function Intro({ onNext }: { onNext: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-7 text-right text-[15px] font-semibold uppercase tracking-[0.3em] text-white"
-            style={{ textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}
+            className="mb-7 text-right text-[15px] font-light uppercase tracking-[0.32em] text-white/80"
           >
             הזמנה אישית
           </motion.p>
 
-          <h2
-            className="text-right font-display text-[clamp(1.6rem,6.7vw,2.15rem)] font-medium leading-[1.3] tracking-[-0.018em] text-balance text-white"
-            style={{ textShadow: "0 2px 18px rgba(0,0,0,0.55)" }}
-          >
+          <h2 className="text-right font-display text-[clamp(1.6rem,6.7vw,2.15rem)] font-light leading-[1.3] tracking-[-0.018em] text-balance text-white">
             <motion.span
               initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +61,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
                 delay: 0.95,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-1 block font-black"
+              className="mt-1 block font-bold"
             >
               בחוויה בלתי נשכחת
             </motion.span>
