@@ -18,6 +18,7 @@ function generateSlot() {
 }
 
 export function Page() {
+  const [introDone, setIntroDone] = useState(false);
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     intent: null,
@@ -31,28 +32,36 @@ export function Page() {
 
   const scrollerRef = useRef<HTMLElement>(null);
 
-  const onQuizComplete = () => {
-    setQuizDone(true);
-    setSlotTime(generateSlot());
-  };
-
-  /* whenever the quiz finishes, snap to the form section */
-  useEffect(() => {
-    if (quizDone) {
-      const t = setTimeout(() => {
-        const formEl = document.getElementById("form");
-        formEl?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 180);
-      return () => clearTimeout(t);
-    }
-  }, [quizDone]);
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
+
+  const onIntroNext = () => {
+    setIntroDone(true);
+  };
+
+  /* once the user has clicked the Intro CTA, mount Quiz and snap to it */
+  useEffect(() => {
+    if (introDone) {
+      const t = setTimeout(() => scrollTo("quiz"), 120);
+      return () => clearTimeout(t);
+    }
+  }, [introDone]);
+
+  const onQuizComplete = () => {
+    setQuizDone(true);
+    setSlotTime(generateSlot());
+  };
+
+  useEffect(() => {
+    if (quizDone) {
+      const t = setTimeout(() => scrollTo("form"), 180);
+      return () => clearTimeout(t);
+    }
+  }, [quizDone]);
 
   const onSubmit = (d: LeadData) => {
     const position = 4 + Math.floor(Math.random() * 6);
@@ -64,14 +73,19 @@ export function Page() {
       <Topbar />
       <main ref={scrollerRef} className="snap-scroll">
         <Hero />
-        <Intro onNext={() => scrollTo("quiz")} />
-        <Questions
-          step={step}
-          setStep={setStep}
-          answers={answers}
-          setAnswers={setAnswers}
-          onComplete={onQuizComplete}
-        />
+        <Intro onNext={onIntroNext} />
+        {/* Quiz and Form are gated behind the Intro CTA so the user cannot
+            scroll past Intro until they click — there's literally no next
+            section in the DOM yet. */}
+        {introDone && (
+          <Questions
+            step={step}
+            setStep={setStep}
+            answers={answers}
+            setAnswers={setAnswers}
+            onComplete={onQuizComplete}
+          />
+        )}
         <AnimatePresence>
           {quizDone && slotTime && (
             <Form

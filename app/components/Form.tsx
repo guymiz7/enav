@@ -95,15 +95,38 @@ export function Form({
   const [legalOpen, setLegalOpen] = useState<"terms" | "privacy" | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const remaining = useMotionValue(1);
-  const widthPct = useTransform(remaining, (v) => `${v * 100}%`);
+  /* 10-second looping countdown. Smooth bar drains alongside an integer display. */
+  const secondsMV = useMotionValue(10);
+  const widthPct = useTransform(secondsMV, (v) =>
+    `${Math.max(0, (v / 10) * 100)}%`
+  );
+  const [seconds, setSeconds] = useState(10);
+
   useEffect(() => {
-    const controls = animate(remaining, 0.08, {
-      duration: 360,
-      ease: "linear",
-    });
-    return controls.stop;
-  }, [remaining]);
+    let cancelled = false;
+    let controls: ReturnType<typeof animate> | null = null;
+
+    const tick = () => {
+      if (cancelled) return;
+      secondsMV.set(10);
+      controls = animate(secondsMV, 0, {
+        duration: 10,
+        ease: "linear",
+        onUpdate: (v) => setSeconds(Math.max(0, Math.ceil(v))),
+        onComplete: () => {
+          setSeconds(0);
+          /* brief pause at zero, then loop */
+          setTimeout(tick, 400);
+        },
+      });
+    };
+    tick();
+
+    return () => {
+      cancelled = true;
+      controls?.stop();
+    };
+  }, [secondsMV]);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -153,15 +176,16 @@ export function Form({
 
   const stage = STAGES[step - 1];
   const error = stageError();
-  const canSkip = step === 3 && !data.email;
+
+  const display = `00:${String(seconds).padStart(2, "0")}`;
 
   return (
     <section id="form" className="snap-section bg-black">
       <div className="flex h-full flex-col px-5 pb-5 pt-16">
-        {/* SLOT ANCHOR — compact */}
+        {/* 10-SECOND COUNTDOWN — replaces the HH:MM anchor */}
         <div className="shrink-0 text-center">
           <p className="text-[10px] font-light uppercase tracking-[0.34em] text-white/45">
-            המקום שלך נשמר עד
+            נשארו לכם
           </p>
           <motion.p
             initial={{ opacity: 0, y: 6 }}
@@ -169,7 +193,7 @@ export function Form({
             transition={{ duration: 1.3, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="mt-1 font-display text-[clamp(3rem,13vw,3.8rem)] font-extralight leading-none tabular tracking-[-0.045em]"
           >
-            {slotTime}
+            {display}
           </motion.p>
           <div className="mx-auto mt-2 h-px w-full max-w-[220px] overflow-hidden bg-white/15">
             <motion.div className="h-full bg-white" style={{ width: widthPct }} />
@@ -268,7 +292,7 @@ export function Form({
             </motion.div>
           </AnimatePresence>
 
-          {/* nav — pushed to bottom of flex container */}
+          {/* nav */}
           <div className="mt-auto grid grid-cols-[40px_1fr] gap-2 pt-3">
             <button
               type="button"
@@ -296,13 +320,11 @@ export function Form({
               )}
             >
               {step < 4 ? (
-                <span>
-                  {canSkip ? "דלגו ובנו את הקומה" : "בנו את הקומה ועלו"}
-                </span>
+                <span>התקדם</span>
               ) : submitting ? (
-                <span>מאשר את התור...</span>
+                <span>כמעט שם...</span>
               ) : (
-                <span>אשרו · {slotTime}</span>
+                <span>קחו אותי לחוויה</span>
               )}
             </button>
           </div>
@@ -345,7 +367,6 @@ function ConsentBlock({
 }) {
   return (
     <div className="mt-2 space-y-3">
-      {/* compact summary — single column, no per-row borders */}
       <div className="space-y-1 border-y border-white/10 py-2.5 text-[11px] font-light leading-tight">
         <Row label="שם" value={data.name || "—"} />
         <Row label="טלפון" value={data.phone || "—"} mono />

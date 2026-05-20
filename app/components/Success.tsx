@@ -58,7 +58,18 @@ export function Success({
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/85 to-black" />
       </div>
 
-      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-14">
+      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 pb-14 pt-20">
+        {/* ENAV logo at the top */}
+        <motion.img
+          src={asset("/media/logo.png")}
+          alt="ENAV"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute left-1/2 top-6 h-9 w-auto -translate-x-1/2"
+          style={{ filter: "brightness(0) invert(1)" }}
+        />
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
