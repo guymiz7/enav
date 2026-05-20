@@ -197,7 +197,6 @@ export function Questions({
                       <ChoiceRow
                         key={opt.value}
                         label={opt.label}
-                        hint={opt.hint}
                         active={
                           (answers[q.id] as string | null) === opt.value
                         }
@@ -217,65 +216,39 @@ export function Questions({
 
 function ChoiceRow({
   label,
-  hint,
   active,
   onClick,
 }: {
   label: string;
-  hint?: string;
   active: boolean;
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
       onClick={onClick}
-      whileTap={{ scale: 0.975 }}
-      whileHover={{ x: -2 }}
       className={cn(
-        "group relative block w-full overflow-hidden border px-5 py-5 text-right transition-colors duration-300",
+        "relative block w-full overflow-hidden border px-5 py-5 text-right",
         active
           ? "border-white bg-white/[0.08]"
-          : "border-white/18 hover:border-white/55 hover:bg-white/[0.025]"
+          : "border-white/18 hover:border-white/45"
       )}
     >
-      {/* RTL-start accent bar on the right edge */}
-      <motion.span
-        aria-hidden
-        initial={false}
-        animate={{
-          scaleY: active ? 1 : 0.18,
-          opacity: active ? 1 : 0,
-        }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-y-0 right-0 w-[3px] origin-center bg-white"
-      />
-
-      {/* hover sweep — barely perceptible diagonal highlight from right to left on hover */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-[-30%] w-[30%] -skew-x-12 bg-gradient-to-l from-white/0 via-white/[0.06] to-white/0 opacity-0 transition-all duration-700 group-hover:right-full group-hover:opacity-100"
-      />
-
+      {active && (
+        <span
+          aria-hidden
+          className="absolute inset-y-0 right-0 w-[3px] bg-white"
+        />
+      )}
       <span
         className={cn(
-          "block text-[17px] transition-colors duration-300",
+          "block text-[17px]",
           active ? "font-medium text-white" : "font-light text-white/88"
         )}
       >
         {label}
       </span>
-      {hint && (
-        <span
-          className={cn(
-            "mt-0.5 block text-[11px] font-light transition-colors duration-300",
-            active ? "text-white/65" : "text-white/40"
-          )}
-        >
-          {hint}
-        </span>
-      )}
-    </motion.button>
+    </button>
   );
 }
 
@@ -291,34 +264,27 @@ function CityChip({
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
       onClick={onClick}
-      whileTap={{ scale: 0.96 }}
-      whileHover={{ x: -2 }}
       className={cn(
-        "group relative block overflow-hidden border px-3.5 py-3 text-right transition-colors duration-300",
+        "relative block min-h-[62px] overflow-hidden border px-3.5 py-3 text-right",
         active
           ? "border-white bg-white/[0.08]"
-          : "border-white/18 hover:border-white/55 hover:bg-white/[0.03]"
+          : "border-white/18 hover:border-white/45"
       )}
     >
-      {/* RTL-start accent bar */}
-      <motion.span
-        aria-hidden
-        initial={false}
-        animate={{
-          scaleY: active ? 1 : 0.18,
-          opacity: active ? 1 : 0,
-        }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-y-0 right-0 w-[2.5px] origin-center bg-white"
-      />
+      {active && (
+        <span
+          aria-hidden
+          className="absolute inset-y-0 right-0 w-[2.5px] bg-white"
+        />
+      )}
 
       {tag && (
         <span
           className={cn(
-            "block text-[9px] uppercase tracking-[0.2em] transition-colors duration-300",
+            "block text-[9px] uppercase tracking-[0.2em]",
             active ? "text-white/72" : "text-white/35"
           )}
         >
@@ -327,12 +293,12 @@ function CityChip({
       )}
       <span
         className={cn(
-          "block text-[14.5px] leading-tight transition-colors duration-300",
+          "block text-[14.5px] leading-tight",
           active ? "font-medium text-white" : "font-light text-white/85"
         )}
       >
         {label}
       </span>
-    </motion.button>
+    </button>
   );
 }
