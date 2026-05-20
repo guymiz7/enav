@@ -257,26 +257,24 @@ function ChoiceRow({
         className="pointer-events-none absolute inset-y-0 right-[-30%] w-[30%] -skew-x-12 bg-gradient-to-l from-white/0 via-white/[0.06] to-white/0 opacity-0 transition-all duration-700 group-hover:right-full group-hover:opacity-100"
       />
 
-      <div className="flex flex-col items-end gap-0.5">
+      <span
+        className={cn(
+          "block text-[17px] transition-colors duration-300",
+          active ? "font-medium text-white" : "font-light text-white/88"
+        )}
+      >
+        {label}
+      </span>
+      {hint && (
         <span
           className={cn(
-            "text-[17px] transition-colors duration-300",
-            active ? "font-medium text-white" : "font-light text-white/88"
+            "mt-0.5 block text-[11px] font-light transition-colors duration-300",
+            active ? "text-white/65" : "text-white/40"
           )}
         >
-          {label}
+          {hint}
         </span>
-        {hint && (
-          <span
-            className={cn(
-              "text-[11px] font-light transition-colors duration-300",
-              active ? "text-white/65" : "text-white/40"
-            )}
-          >
-            {hint}
-          </span>
-        )}
-      </div>
+      )}
     </motion.button>
   );
 }
@@ -317,26 +315,24 @@ function CityChip({
         className="absolute inset-y-0 right-0 w-[2.5px] origin-center bg-white"
       />
 
-      <div className="flex flex-col items-end gap-0.5">
-        {tag && (
-          <span
-            className={cn(
-              "text-[9px] uppercase tracking-[0.2em] transition-colors duration-300",
-              active ? "text-white/72" : "text-white/35"
-            )}
-          >
-            {tag}
-          </span>
-        )}
+      {tag && (
         <span
           className={cn(
-            "text-[14.5px] leading-tight transition-colors duration-300",
-            active ? "font-medium text-white" : "font-light text-white/85"
+            "block text-[9px] uppercase tracking-[0.2em] transition-colors duration-300",
+            active ? "text-white/72" : "text-white/35"
           )}
         >
-          {label}
+          {tag}
         </span>
-      </div>
+      )}
+      <span
+        className={cn(
+          "block text-[14.5px] leading-tight transition-colors duration-300",
+          active ? "font-medium text-white" : "font-light text-white/85"
+        )}
+      >
+        {label}
+      </span>
     </motion.button>
   );
 }

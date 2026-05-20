@@ -20,7 +20,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-7 text-right text-[10px] font-light uppercase tracking-[0.42em] text-white/65"
+            className="mb-7 text-right text-[15px] font-light uppercase tracking-[0.32em] text-white/80"
           >
             הזמנה אישית
           </motion.p>
