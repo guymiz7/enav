@@ -5,13 +5,13 @@ import { asset } from "@/lib/asset";
 
 export function Intro({ onNext }: { onNext: () => void }) {
   return (
-    <section id="intro" className="snap-section bg-black">
+    <section id="intro" className="snap-section bg-navy">
       <img
         src={asset("/media/AVIR_0099_1-scaled.jpg")}
         alt=""
         className="absolute inset-0 h-full w-full object-cover opacity-35"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/55 via-navy/35 to-navy/90" />
 
       <div className="relative z-10 flex h-full flex-col justify-center px-6">
         <div className="mx-auto w-full max-w-[460px]">
@@ -88,7 +88,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 1.2, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
             whileTap={{ scale: 0.97 }}
-            className="mt-10 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-black transition active:bg-white/90"
+            className="mt-10 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-navy transition active:bg-white/90"
           >
             קחו אותי לחוויה
           </motion.button>

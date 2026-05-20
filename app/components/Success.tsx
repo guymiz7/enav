@@ -46,18 +46,18 @@ export function Success({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.55 }}
-      className="fixed inset-0 z-[60] overflow-y-auto bg-black"
+      className="fixed inset-0 z-[60] overflow-y-auto bg-navy"
     >
       <div className="pointer-events-none absolute inset-0">
         <img
           src={asset("/media/tkuma-ks-ap-pool-c01_0-6-scaled.jpg")}
           alt=""
-          className="h-full w-full object-cover opacity-25"
+          className="h-full w-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/85 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/85 to-navy" />
       </div>
 
-      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-16">
+      <div className="relative mx-auto flex min-h-full max-w-[460px] flex-col justify-center px-6 py-14">
         {/* ENAV logo — centered, prominent */}
         <motion.img
           src={asset("/media/logo.png")}
@@ -69,7 +69,6 @@ export function Success({
           style={{ filter: "brightness(0) invert(1)" }}
         />
 
-        {/* completed building */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -83,7 +82,7 @@ export function Success({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-8 text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
+          className="mt-7 text-center text-[10px] font-light uppercase tracking-[0.34em] text-white/55"
         >
           המקום שלך אושר
         </motion.p>
@@ -92,12 +91,11 @@ export function Success({
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-5 text-center font-display text-[clamp(1.9rem,7.5vw,2.4rem)] font-extralight leading-tight tracking-[-0.018em]"
+          className="mt-4 text-center font-display text-[clamp(1.9rem,7.5vw,2.4rem)] font-extralight leading-tight tracking-[-0.018em]"
         >
           {first ? `${first}, ` : ""}תורך מובטח.
         </motion.h2>
 
-        {/* what's going to happen — value statement */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -151,6 +149,24 @@ export function Success({
               last
             />
           </dl>
+        </motion.div>
+
+        {/* ENAV phone — from the brand PDFs */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 1.7 }}
+          className="mx-auto mt-10 flex flex-col items-center gap-2 border-t border-white/12 pt-6"
+        >
+          <span className="text-[10px] font-light uppercase tracking-[0.32em] text-white/45">
+            לפרטים נוספים
+          </span>
+          <a
+            href="tel:*3989"
+            className="font-display text-[clamp(1.8rem,7vw,2.1rem)] font-light tracking-[0.04em] tabular text-white hover:text-white/85"
+          >
+            *3989
+          </a>
         </motion.div>
       </div>
     </motion.div>

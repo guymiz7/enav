@@ -39,14 +39,14 @@ export function LegalSheet({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 z-[70] bg-black/75 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] bg-navy/75 backdrop-blur-sm"
           />
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-0 bottom-0 z-[80] max-h-[80vh] overflow-y-auto border-t border-white/15 bg-black px-5 pb-10 pt-6"
+            className="fixed inset-x-0 bottom-0 z-[80] max-h-[80vh] overflow-y-auto border-t border-white/15 bg-navy px-5 pb-10 pt-6"
           >
             <div className="mx-auto max-w-[460px]">
               <div className="mb-5 flex items-center justify-between">

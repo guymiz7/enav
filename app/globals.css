@@ -6,7 +6,7 @@
   html,
   body {
     height: 100%;
-    background: #000;
+    background: #102B4B;
     overflow: hidden;
     overscroll-behavior: none;
   }
@@ -16,7 +16,7 @@
     text-rendering: optimizeLegibility;
     color: #fff;
   }
-  ::selection { background: #fff; color: #000; }
+  ::selection { background: #fff; color: #102B4B; }
   ::-webkit-scrollbar { width: 0; height: 0; }
 }
 
@@ -25,17 +25,17 @@
     width: 100%;
     background: transparent;
     border: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 1px solid rgba(255,255,255,0.22);
     color: #fff;
     font-family: inherit;
     font-size: 16px;
     font-weight: 300;
-    padding: 14px 0;
+    padding: 12px 0;
     outline: none;
     transition: border-color 0.3s ease;
   }
   .input-line:focus { border-bottom-color: #fff; }
-  .input-line::placeholder { color: rgba(255,255,255,0.22); }
+  .input-line::placeholder { color: rgba(255,255,255,0.28); }
 
   .check-box {
     appearance: none;
@@ -58,10 +58,9 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='%23000'><path d='M11.5 3.5L5.5 9.5 2.5 6.5l1-1L5.5 7.5l5-5z'/></svg>") center/10px no-repeat;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='%23102B4B'><path d='M11.5 3.5L5.5 9.5 2.5 6.5l1-1L5.5 7.5l5-5z'/></svg>") center/10px no-repeat;
   }
 
-  /* page-level snap scroll container */
   .snap-scroll {
     height: 100svh;
     overflow-y: scroll;
@@ -76,13 +75,6 @@
     height: 100svh;
     width: 100%;
     overflow: hidden;
-    position: relative;
-  }
-  .snap-section-scrollable {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    min-height: 100svh;
-    width: 100%;
     position: relative;
   }
 }

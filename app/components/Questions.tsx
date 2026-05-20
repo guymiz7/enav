@@ -100,10 +100,10 @@ export function Questions({
     : !!(answers[q.id] as string | null);
 
   return (
-    <section id="quiz" className="snap-section bg-black">
+    <section id="quiz" className="snap-section bg-navy">
       <div className="flex h-full flex-col">
         {/* IMAGE PREVIEW — top portion (~38% of viewport) */}
-        <div className="relative h-[38svh] min-h-[220px] overflow-hidden bg-black">
+        <div className="relative h-[38svh] min-h-[220px] overflow-hidden bg-navy">
           <AnimatePresence mode="popLayout">
             <motion.img
               key={q.image}
@@ -120,7 +120,7 @@ export function Questions({
             />
           </AnimatePresence>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/65 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy via-navy/65 to-transparent" />
 
           {/* progress bars at bottom of image */}
           <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 px-5 pb-5">
@@ -184,7 +184,7 @@ export function Questions({
                       className={cn(
                         "mt-auto w-full border py-4 text-[15px] font-medium tracking-wide transition",
                         canAdvance
-                          ? "border-white bg-white text-black"
+                          ? "border-white bg-white text-navy"
                           : "cursor-not-allowed border-white/15 bg-transparent text-white/30"
                       )}
                     >
@@ -274,7 +274,7 @@ function ChoiceRow({
             >
               <path
                 d="M2.5 6L5 8.5L9.5 3.5"
-                stroke="#000"
+                stroke="#102B4B"
                 strokeWidth="1.6"
                 fill="none"
                 strokeLinecap="round"

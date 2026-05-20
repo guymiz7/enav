@@ -20,7 +20,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#000000",
+  themeColor: "#102B4B",
 };
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RootLayout({
       dir="rtl"
       className={`${heebo.variable} ${assistant.variable}`}
     >
-      <body className="min-h-screen bg-black font-sans text-white">{children}</body>
+      <body className="min-h-screen bg-navy font-sans text-white">{children}</body>
     </html>
   );
 }

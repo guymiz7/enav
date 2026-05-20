@@ -17,6 +17,9 @@ const config: Config = {
           "sans-serif",
         ],
       },
+      colors: {
+        navy: "#102B4B",
+      },
     },
   },
   plugins: [],

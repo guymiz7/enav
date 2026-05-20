@@ -6,7 +6,7 @@ export function Topbar() {
       {/* subtle gradient strictly to keep the logo legible against bright frames */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/55 to-transparent"
+        className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-navy/55 to-transparent"
       />
       <div className="relative mx-auto flex h-16 max-w-[480px] items-center justify-center px-5">
         <img

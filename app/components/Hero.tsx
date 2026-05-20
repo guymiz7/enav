@@ -49,7 +49,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="snap-section bg-black">
+    <section id="hero" className="snap-section bg-navy">
       <video
         ref={v}
         className="absolute inset-0 h-full w-full object-cover"
@@ -62,7 +62,7 @@ export function Hero() {
         preload="auto"
       />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-black via-black/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-navy via-navy/70 to-transparent" />
 
       {/* headline overlay — softer staggered fade, no blur */}
       <div className="absolute inset-x-0 bottom-0 px-6 pb-16 sm:pb-24">
