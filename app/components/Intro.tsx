@@ -9,9 +9,9 @@ export function Intro({ onNext }: { onNext: () => void }) {
       <img
         src={asset("/media/AVIR_0099_1-scaled.jpg")}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover opacity-20"
+        className="absolute inset-0 h-full w-full object-cover opacity-15"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-navy/75 via-navy/65 to-navy/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/75 to-navy/95" />
 
       <div className="relative z-10 flex h-full flex-col justify-center px-6">
         <div className="mx-auto w-full max-w-[460px]">
@@ -20,12 +20,16 @@ export function Intro({ onNext }: { onNext: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-7 text-right text-[15px] font-light uppercase tracking-[0.32em] text-white/80"
+            className="mb-7 text-right text-[15px] font-medium uppercase tracking-[0.32em] text-white"
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}
           >
             הזמנה אישית
           </motion.p>
 
-          <h2 className="text-right font-display text-[clamp(1.6rem,6.7vw,2.15rem)] font-light leading-[1.3] tracking-[-0.018em] text-balance text-white">
+          <h2
+            className="text-right font-display text-[clamp(1.5rem,6.3vw,2rem)] font-normal leading-[1.32] tracking-[-0.018em] text-balance text-white"
+            style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6)" }}
+          >
             <motion.span
               initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +65,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
                 delay: 0.95,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-1 block font-bold"
+              className="mt-1.5 block font-bold"
             >
               בחוויה בלתי נשכחת
             </motion.span>
