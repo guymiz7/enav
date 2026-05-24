@@ -16,14 +16,14 @@ export function Hero() {
       {/* soft wash at the top so the logo reads cleanly over the sky */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/65 to-transparent" />
 
-      {/* large ENAV logo — centered both axes */}
+      {/* large ENAV logo — top center, matching Success */}
       <motion.img
         src={asset("/media/logo.png")}
         alt="ENAV"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-1/2 top-1/2 z-10 h-20 w-auto -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-12 z-10 h-20 w-auto -translate-x-1/2"
         style={{ filter: "brightness(0) invert(1)" }}
       />
 

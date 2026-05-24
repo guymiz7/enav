@@ -27,7 +27,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
           </motion.p>
 
           <h2
-            className="text-right font-display text-[clamp(1.5rem,6.3vw,2rem)] font-normal leading-[1.32] tracking-[-0.018em] text-balance text-white"
+            className="text-right font-display text-[clamp(1.4rem,5.9vw,1.9rem)] font-normal leading-[1.35] tracking-[-0.018em] text-balance text-white"
             style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6)" }}
           >
             <motion.span
@@ -39,22 +39,9 @@ export function Intro({ onNext }: { onNext: () => void }) {
                 delay: 0.25,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="block"
-            >
-              הקדישו דקה מזמנכם
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.4 }}
-              transition={{
-                duration: 1.4,
-                delay: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
               className="block whitespace-nowrap"
             >
-              למילוי הפרטים, והבטיחו את מקומכם
+              הקדישו דקה מזמנכם למילוי הפרטים,
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 6 }}
@@ -62,12 +49,13 @@ export function Intro({ onNext }: { onNext: () => void }) {
               viewport={{ once: false, amount: 0.4 }}
               transition={{
                 duration: 1.4,
-                delay: 0.95,
+                delay: 0.7,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-1.5 block font-bold"
+              className="mt-1 block whitespace-nowrap"
             >
-              בחוויה בלתי נשכחת
+              והבטיחו את מקומכם ב
+              <strong className="font-bold">חוויה בלתי נשכחת</strong>
             </motion.span>
           </h2>
 
