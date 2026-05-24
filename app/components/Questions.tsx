@@ -100,8 +100,8 @@ export function Questions({
     : !!(answers[q.id] as string | null);
 
   return (
-    <section id="quiz" className="snap-section bg-navy">
-      <div className="flex h-full flex-col">
+    <section id="quiz" className="snap-section-grow bg-navy">
+      <div className="flex min-h-[100svh] flex-col">
         {/* IMAGE PREVIEW — top portion (~38% of viewport) */}
         <div className="relative h-[38svh] min-h-[220px] overflow-hidden bg-navy">
           <AnimatePresence mode="popLayout">
