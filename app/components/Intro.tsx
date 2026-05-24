@@ -20,14 +20,14 @@ export function Intro({ onNext }: { onNext: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-7 text-right text-[15px] font-medium uppercase tracking-[0.32em] text-white"
+            className="mb-7 text-right text-[15px] font-extralight uppercase tracking-[0.32em] text-white"
             style={{ textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}
           >
             הזמנה אישית
           </motion.p>
 
           <h2
-            className="text-right font-display text-[clamp(1.4rem,5.9vw,1.9rem)] font-normal leading-[1.35] tracking-[-0.018em] text-balance text-white"
+            className="text-right font-display text-[clamp(1.4rem,5.9vw,1.9rem)] font-extralight leading-[1.35] tracking-[-0.018em] text-balance text-white"
             style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6)" }}
           >
             <motion.span
