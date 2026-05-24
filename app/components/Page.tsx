@@ -8,6 +8,8 @@ import { Questions, type Answers } from "./Questions";
 import { Form, type LeadData } from "./Form";
 import { Success } from "./Success";
 
+const WEBHOOK_URL = "https://hook.eu1.make.com/jyro25pviif2hveod9oxim7rbr3okw86";
+
 function generateSlot() {
   const minsFromNow = 14 + Math.floor(Math.random() * 9);
   const d = new Date(Date.now() + minsFromNow * 60_000);
@@ -65,6 +67,31 @@ export function Page() {
   const onSubmit = (d: LeadData) => {
     const position = 4 + Math.floor(Math.random() * 6);
     setSuccess({ position, name: d.name });
+
+    const payload = {
+      name: d.name,
+      phone: d.phone,
+      email: d.email,
+      consent: d.consent,
+      intent: answers.intent,
+      budget: answers.budget,
+      cities: answers.cities,
+      slotTime,
+      position,
+      submittedAt: new Date().toISOString(),
+      pageUrl: typeof window !== "undefined" ? window.location.href : "",
+      referrer: typeof document !== "undefined" ? document.referrer : "",
+      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+    };
+
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {
+      /* swallow — success screen already shown, retry handled out-of-band */
+    });
   };
 
   return (
