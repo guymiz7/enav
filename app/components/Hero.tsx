@@ -62,16 +62,19 @@ export function Hero() {
           </motion.span>
         </h1>
 
-        {/* 5 ENAV projects strip — matches the brand banner */}
+        {/* 5 ENAV projects strip — matches the brand banner.
+            Wrapped in an overflow-x-auto bleed so very narrow viewports
+            (iPhone SE 320px) gracefully scroll instead of clipping. */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-7"
+          className="-mx-6 mt-7 overflow-x-auto px-6"
+          style={{ scrollbarWidth: "none" }}
         >
           <div
             dir="ltr"
-            className="mx-auto flex max-w-[480px] items-center justify-between gap-2 px-1"
+            className="mx-auto flex w-max items-center gap-3 px-1"
           >
             <Project label="COMING SOON" city="עין הים" />
             <Sep />

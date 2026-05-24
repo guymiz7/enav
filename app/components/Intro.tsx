@@ -27,7 +27,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
           </motion.p>
 
           <h2
-            className="text-right font-display text-[clamp(1.4rem,5.9vw,1.9rem)] font-extralight leading-[1.35] tracking-[-0.018em] text-balance text-white"
+            className="text-right font-display text-[clamp(1.25rem,5.6vw,1.85rem)] font-extralight leading-[1.35] tracking-[-0.018em] text-balance text-white"
             style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6)" }}
           >
             <motion.span
