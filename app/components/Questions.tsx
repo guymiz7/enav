@@ -225,10 +225,10 @@ function ChoiceRow({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative block w-full overflow-hidden border px-5 py-5 text-right",
+        "relative block w-full overflow-hidden px-5 py-5 text-right ring-1 ring-inset transition-shadow",
         active
-          ? "border-white bg-white/[0.1]"
-          : "border-white/18 hover:border-white/45"
+          ? "bg-white/[0.1] ring-white"
+          : "ring-white/40 hover:ring-white/60"
       )}
     >
       <span
@@ -259,10 +259,10 @@ function CityChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative block min-h-[62px] overflow-hidden border px-3.5 py-3 text-right",
+        "relative block min-h-[62px] overflow-hidden px-3.5 py-3 text-right ring-1 ring-inset transition-shadow",
         active
-          ? "border-white bg-white/[0.1]"
-          : "border-white/18 hover:border-white/45"
+          ? "bg-white/[0.1] ring-white"
+          : "ring-white/40 hover:ring-white/60"
       )}
     >
       {tag && (
