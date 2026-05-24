@@ -230,16 +230,10 @@ function ChoiceRow({
       className={cn(
         "relative block w-full overflow-hidden border px-5 py-5 text-right",
         active
-          ? "border-white bg-white/[0.08]"
+          ? "border-white bg-white/[0.1]"
           : "border-white/18 hover:border-white/45"
       )}
     >
-      {active && (
-        <span
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-[3px] bg-white"
-        />
-      )}
       <span
         className={cn(
           "block text-[17px]",
@@ -270,17 +264,10 @@ function CityChip({
       className={cn(
         "relative block min-h-[62px] overflow-hidden border px-3.5 py-3 text-right",
         active
-          ? "border-white bg-white/[0.08]"
+          ? "border-white bg-white/[0.1]"
           : "border-white/18 hover:border-white/45"
       )}
     >
-      {active && (
-        <span
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-[2.5px] bg-white"
-        />
-      )}
-
       {tag && (
         <span
           className={cn(
