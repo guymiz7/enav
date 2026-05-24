@@ -50,13 +50,10 @@ const QUESTIONS: Q[] = [
     image: "/media/tkuma-ks-ap-pool-c01_0-6-scaled.jpg",
     options: [
       { value: "ramat-gan", label: "רמת גן" },
-      { value: "tel-aviv", label: "תל אביב", tag: "פריסייל" },
       { value: "kfar-saba", label: "כפר סבא" },
       { value: "ein-hayam", label: "עין הים", tag: "פריסייל" },
       { value: "kiryat-ono", label: "קריית אונו" },
       { value: "yehud", label: "יהוד מונסון" },
-      { value: "jerusalem", label: "ירושלים" },
-      { value: "netanya", label: "נתניה" },
     ],
   },
 ];

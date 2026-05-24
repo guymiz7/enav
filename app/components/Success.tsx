@@ -5,13 +5,10 @@ import { asset } from "@/lib/asset";
 
 const CITY_LABELS: Record<string, string> = {
   "ramat-gan": "רמת גן",
-  "tel-aviv": "תל אביב",
   "kfar-saba": "כפר סבא",
   "ein-hayam": "עין הים",
   "kiryat-ono": "קריית אונו",
   yehud: "יהוד מונסון",
-  jerusalem: "ירושלים",
-  netanya: "נתניה",
 };
 
 const INTENT_LABELS: Record<string, string> = {
