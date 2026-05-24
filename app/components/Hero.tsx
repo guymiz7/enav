@@ -16,13 +16,13 @@ export function Hero() {
         className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl"
       />
       {/* Foreground: the full Tkuma sunset image, uncropped,
-          positioned slightly above center so the towers sit higher
-          in the frame and leave room for the headline at the bottom */}
+          positioned so the towers sit roughly between the top
+          logo and the bottom headline */}
       <img
         src={asset("/media/tkuma-sunset.jpg")}
         alt=""
         className="absolute inset-0 h-full w-full object-contain"
-        style={{ objectPosition: "center 25%" }}
+        style={{ objectPosition: "center 45%" }}
       />
 
       {/* soft wash at the top so the logo reads cleanly */}
