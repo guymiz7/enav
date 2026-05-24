@@ -47,19 +47,7 @@ export function Hero() {
             }}
             className="block"
           >
-            אתם מרחק נגיעה
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 1.5,
-              delay: 1.0,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="block"
-          >
-            מהבית החדש שלכם
+            קחו את עצמכם הביתה
           </motion.span>
         </h1>
 

@@ -27,7 +27,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
           </motion.p>
 
           <h2
-            className="text-right font-display text-[clamp(1.25rem,5.6vw,1.85rem)] font-extralight leading-[1.35] tracking-[-0.018em] text-balance text-white"
+            className="text-right font-display text-[clamp(1.2rem,5.4vw,1.8rem)] font-extralight leading-[1.4] tracking-[-0.018em] text-balance text-white"
             style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6)" }}
           >
             <motion.span
@@ -39,9 +39,9 @@ export function Intro({ onNext }: { onNext: () => void }) {
                 delay: 0.25,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="block whitespace-nowrap"
+              className="block"
             >
-              הקדישו דקה מזמנכם למילוי הפרטים,
+              הקדישו דקה מזמנכם למילוי הטופס,
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 6 }}
@@ -52,10 +52,9 @@ export function Intro({ onNext }: { onNext: () => void }) {
                 delay: 0.7,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-1 block whitespace-nowrap"
+              className="mt-1 block"
             >
-              והבטיחו את מקומכם ב
-              <strong className="font-bold">חוויה בלתי נשכחת</strong>
+              וקבלו <strong className="font-bold">מתנה ייחודית</strong> בדרך לבית החדש שלכם
             </motion.span>
           </h2>
 
@@ -69,7 +68,7 @@ export function Intro({ onNext }: { onNext: () => void }) {
             whileTap={{ scale: 0.97 }}
             className="mt-10 w-full border border-white bg-white py-4 text-[15px] font-medium tracking-wide text-navy transition active:bg-white/90"
           >
-            קחו אותי לחוויה
+            לקבלת המתנה
           </motion.button>
         </div>
       </div>

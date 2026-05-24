@@ -157,7 +157,7 @@ export function Form({
                 : "border-white/15 bg-transparent text-white/45"
             )}
           >
-            {submitting ? "כמעט שם..." : "קחו אותי לחוויה"}
+            {submitting ? "כמעט שם..." : "לקבלת המתנה"}
           </motion.button>
         </form>
       </div>

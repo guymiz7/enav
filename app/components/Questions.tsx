@@ -185,7 +185,7 @@ export function Questions({
                           : "cursor-not-allowed border-white/15 bg-transparent text-white/30"
                       )}
                     >
-                      התקדם
+                      לקבלת המתנה
                     </button>
                   </>
                 ) : (
