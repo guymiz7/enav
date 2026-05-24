@@ -16,16 +16,21 @@ export function Hero() {
       {/* soft wash at the top so the logo reads cleanly over the sky */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/65 to-transparent" />
 
-      {/* large ENAV logo — top center, matching Success */}
-      <motion.img
-        src={asset("/media/logo.png")}
-        alt="ENAV"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-1/2 top-12 z-10 h-20 w-auto -translate-x-1/2"
-        style={{ filter: "brightness(0) invert(1)" }}
-      />
+      {/* large ENAV logo — top center, matching Success.
+          The motion.img is wrapped in a flex container so its
+          framer-motion transform (y animation) doesn't override
+          the horizontal centering. */}
+      <div className="absolute inset-x-0 top-12 z-10 flex justify-center">
+        <motion.img
+          src={asset("/media/logo.png")}
+          alt="ENAV"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="h-20 w-auto"
+          style={{ filter: "brightness(0) invert(1)" }}
+        />
+      </div>
 
       {/* dark wash at the bottom for the headline */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-navy via-navy/82 to-transparent" />
