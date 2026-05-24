@@ -6,9 +6,9 @@ import { asset } from "@/lib/asset";
 export function Hero() {
   return (
     <section id="hero" className="snap-section bg-navy">
-      {/* full-bleed brand image — the "looking up at the tower" shot */}
+      {/* full-bleed brand image — twilight cityscape with the tower */}
       <img
-        src={asset("/media/Cam_Up-1_FIX-1-scaled.jpg")}
+        src={asset("/media/AVIR_0123_-scaled.jpg")}
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
       />

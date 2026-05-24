@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { FormBuilding } from "./FormBuilding";
 import { LegalSheet } from "./LegalSheet";
 
 export type LeadData = {
@@ -36,10 +35,6 @@ export function Form({
   const emailOk =
     !data.email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
 
-  /* drive the building from how many required pieces are filled */
-  const buildingStep =
-    1 + (nameOk ? 1 : 0) + (phoneOk ? 1 : 0) + (data.consent ? 1 : 0);
-
   const formValid = nameOk && phoneOk && emailOk && data.consent;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,16 +47,11 @@ export function Form({
 
   return (
     <section id="form" className="snap-section-grow bg-navy">
-      <div className="flex min-h-[100svh] flex-col px-5 pb-6 pt-14">
-        {/* building illustration — always visible, grows as fields fill */}
-        <div className="flex shrink-0 justify-center">
-          <FormBuilding step={buildingStep} complete={false} />
-        </div>
-
+      <div className="flex min-h-[100svh] flex-col px-5 pb-6 pt-16">
         {/* form */}
         <form
           onSubmit={handleSubmit}
-          className="mx-auto mt-4 flex w-full max-w-[460px] flex-1 flex-col"
+          className="mx-auto flex w-full max-w-[460px] flex-1 flex-col"
         >
           <Field
             label="שם מלא"
