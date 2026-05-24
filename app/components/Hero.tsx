@@ -7,11 +7,12 @@ import { cn } from "@/lib/utils";
 export function Hero() {
   return (
     <section id="hero" className="snap-section bg-navy">
-      {/* full-bleed brand image — Tkuma towers at sunset */}
+      {/* brand image — Tkuma towers at sunset, fit-contained so the
+          full composition is visible (zoomed out vs object-cover) */}
       <img
         src={asset("/media/tkuma-sunset.jpg")}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-contain object-center"
       />
 
       {/* soft wash at the top so the logo reads cleanly */}
@@ -33,8 +34,8 @@ export function Hero() {
       {/* dark wash at the bottom for the headline + project strip */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-navy via-navy/82 to-transparent" />
 
-      {/* headline + project strip pinned to the bottom */}
-      <div className="absolute inset-x-0 bottom-0 px-6 pb-10 sm:pb-14">
+      {/* headline + project strip + scroll cue pinned to the bottom */}
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-6 sm:pb-10">
         <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.6rem,12vw,3.7rem)] font-extralight leading-[1.07] tracking-[-0.025em] text-balance">
           <motion.span
             initial={{ opacity: 0, y: 8 }}
@@ -86,6 +87,44 @@ export function Hero() {
             <Sep />
             <Project label="שדרות האומנות" city="יהוד-מונסון" hebrew />
           </div>
+        </motion.div>
+
+        {/* scroll-down indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.9 }}
+          className="mt-5 flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 5, 0], opacity: [0.5, 0.95, 0.5] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="flex flex-col items-center gap-1"
+          >
+            <span className="text-[10px] font-light uppercase tracking-[0.32em] text-white/70">
+              גלילה
+            </span>
+            <svg
+              width="20"
+              height="12"
+              viewBox="0 0 20 12"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M2 2 L10 9 L18 2"
+                stroke="white"
+                strokeOpacity="0.85"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
         </motion.div>
       </div>
     </section>
