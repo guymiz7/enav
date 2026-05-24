@@ -7,11 +7,19 @@ import { cn } from "@/lib/utils";
 export function Hero() {
   return (
     <section id="hero" className="snap-section bg-navy">
-      {/* full-bleed brand image — Tkuma towers at sunset */}
+      {/* Background fill: blurred zoom of the same image, so the
+          section fills edge-to-edge with no navy letterbox. */}
       <img
         src={asset("/media/tkuma-sunset.jpg")}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        aria-hidden
+        className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl"
+      />
+      {/* Foreground: the full Tkuma sunset image, uncropped */}
+      <img
+        src={asset("/media/tkuma-sunset.jpg")}
+        alt=""
+        className="absolute inset-0 h-full w-full object-contain object-center"
       />
 
       {/* soft wash at the top so the logo reads cleanly */}
