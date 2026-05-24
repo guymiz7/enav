@@ -22,9 +22,6 @@ export function Hero() {
         className="absolute inset-0 h-full w-full object-contain object-center"
       />
 
-      {/* soft wash at the top so the logo reads cleanly */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/65 to-transparent" />
-
       {/* large ENAV logo — top center */}
       <div className="absolute inset-x-0 top-12 z-10 flex justify-center">
         <motion.img
@@ -34,16 +31,19 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="h-20 w-auto"
-          style={{ filter: "brightness(0) invert(1)" }}
+          style={{
+            filter:
+              "brightness(0) invert(1) drop-shadow(0 2px 14px rgba(0,0,0,0.55))",
+          }}
         />
       </div>
 
-      {/* dark wash at the bottom for the headline + project strip */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-navy via-navy/82 to-transparent" />
-
       {/* headline + project strip + scroll cue pinned to the bottom */}
       <div className="absolute inset-x-0 bottom-0 px-6 pb-6 sm:pb-10">
-        <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.6rem,12vw,3.7rem)] font-extralight leading-[1.07] tracking-[-0.025em] text-balance">
+        <h1
+          className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.6rem,12vw,3.7rem)] font-extralight leading-[1.07] tracking-[-0.025em] text-balance"
+          style={{ textShadow: "0 2px 18px rgba(0,0,0,0.65)" }}
+        >
           <motion.span
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,8 +99,14 @@ export function Hero() {
               ease: "easeInOut",
             }}
             className="flex flex-col items-center gap-1"
+            style={{
+              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.55))",
+            }}
           >
-            <span className="text-[10px] font-light uppercase tracking-[0.32em] text-white/70">
+            <span
+              className="text-[10px] font-light uppercase tracking-[0.32em] text-white"
+              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}
+            >
               גלילה
             </span>
             <svg
@@ -113,7 +119,7 @@ export function Hero() {
               <path
                 d="M2 2 L10 9 L18 2"
                 stroke="white"
-                strokeOpacity="0.85"
+                strokeOpacity="0.95"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -136,7 +142,10 @@ function Project({
   hebrew?: boolean;
 }) {
   return (
-    <div className="flex min-w-0 flex-col items-center gap-0.5 text-center">
+    <div
+      className="flex min-w-0 flex-col items-center gap-0.5 text-center"
+      style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}
+    >
       <span
         className={cn(
           "whitespace-nowrap text-[8.5px] font-medium leading-tight text-white",
@@ -145,7 +154,7 @@ function Project({
       >
         {label}
       </span>
-      <span className="whitespace-nowrap text-[8.5px] font-light leading-tight text-white/75">
+      <span className="whitespace-nowrap text-[8.5px] font-light leading-tight text-white/85">
         {city}
       </span>
     </div>
@@ -154,6 +163,10 @@ function Project({
 
 function Sep() {
   return (
-    <span aria-hidden className="h-6 w-px shrink-0 bg-white/25" />
+    <span
+      aria-hidden
+      className="h-6 w-px shrink-0 bg-white/40"
+      style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.5)" }}
+    />
   );
 }
