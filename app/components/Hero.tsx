@@ -6,15 +6,15 @@ import { asset } from "@/lib/asset";
 export function Hero() {
   return (
     <section id="hero" className="snap-section bg-navy">
-      {/* PDF building image — centered vertical strip, native aspect */}
+      {/* full-bleed brand image — the "looking up at the tower" shot */}
       <img
-        src={asset("/media/pdf_building.png")}
+        src={asset("/media/Cam_Up-1_FIX-1-scaled.jpg")}
         alt=""
-        className="absolute inset-y-0 left-1/2 h-full w-auto -translate-x-1/2"
+        className="absolute inset-0 h-full w-full object-cover"
       />
 
-      {/* soft top wash so the logo reads cleanly over the sky */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/70 to-transparent" />
+      {/* soft wash at the top so the logo reads cleanly over the sky */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36%] bg-gradient-to-b from-navy via-navy/65 to-transparent" />
 
       {/* large ENAV logo */}
       <motion.img
@@ -27,10 +27,10 @@ export function Hero() {
         style={{ filter: "brightness(0) invert(1)" }}
       />
 
-      {/* bottom wash for the headline */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-navy via-navy/80 to-transparent" />
+      {/* dark wash at the bottom for the headline */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-navy via-navy/82 to-transparent" />
 
-      {/* headline at the bottom */}
+      {/* headline */}
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14 sm:pb-20">
         <h1 className="mx-auto max-w-[480px] text-right font-display text-[clamp(2.6rem,12vw,3.7rem)] font-extralight leading-[1.07] tracking-[-0.025em] text-balance">
           <motion.span

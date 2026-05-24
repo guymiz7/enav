@@ -33,7 +33,7 @@ export function FormBuilding({
     <svg
       viewBox="0 0 100 340"
       preserveAspectRatio="xMidYEnd meet"
-      className="h-[26svh] min-h-[210px] max-h-[260px] w-auto"
+      className="h-[20svh] min-h-[160px] max-h-[200px] w-auto"
       fill="none"
     >
       {/* sidewalk */}

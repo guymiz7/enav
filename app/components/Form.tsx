@@ -51,8 +51,8 @@ export function Form({
   };
 
   return (
-    <section id="form" className="snap-section bg-navy">
-      <div className="flex h-full flex-col px-5 pb-5 pt-16">
+    <section id="form" className="snap-section-grow bg-navy">
+      <div className="flex min-h-[100svh] flex-col px-5 pb-6 pt-14">
         {/* building illustration — always visible, grows as fields fill */}
         <div className="flex shrink-0 justify-center">
           <FormBuilding step={buildingStep} complete={false} />

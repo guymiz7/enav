@@ -58,15 +58,19 @@ export function Success({
           style={{ filter: "brightness(0) invert(1)" }}
         />
 
-        {/* Building image from PDF */}
-        <motion.img
-          src={asset("/media/pdf_building.png")}
-          alt=""
+        {/* Brand building image — contained, object-cover for clean fit */}
+        <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-8 h-[32svh] min-h-[230px] max-h-[300px] w-auto"
-        />
+          className="mx-auto mt-8 h-[28svh] min-h-[220px] max-h-[300px] w-full max-w-[340px] overflow-hidden"
+        >
+          <img
+            src={asset("/media/Cam_Up-1_FIX-1-scaled.jpg")}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}

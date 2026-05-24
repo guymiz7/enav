@@ -77,6 +77,16 @@
     overflow: hidden;
     position: relative;
   }
+  /* For sections (like the Form) whose content may exceed 100svh on
+     small viewports — they snap-align like the others but the section
+     itself can grow taller so nothing inside gets clipped. */
+  .snap-section-grow {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100svh;
+    width: 100%;
+    position: relative;
+  }
 }
 
 @layer utilities {
