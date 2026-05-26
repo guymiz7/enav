@@ -126,6 +126,24 @@ export function Success({
           </dl>
         </motion.div>
 
+        {/* delayed WhatsApp fallback — appears ~5s after the page renders */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 5 }}
+          className="mx-auto mt-8 text-center text-[12.5px] font-light text-white/70"
+        >
+          לא קבלת את ההודעה? לחץ{" "}
+          <a
+            href="https://api.whatsapp.com/send/?phone=97299532852&text=%D7%9C%D7%90%20%D7%A7%D7%99%D7%91%D7%9C%D7%AA%D7%99%20%D7%9E%D7%A1%D7%A4%D7%A8&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white underline underline-offset-4 hover:text-white/80"
+          >
+            כאן
+          </a>
+        </motion.p>
+
         {/* phone footer */}
         <motion.p
           initial={{ opacity: 0 }}
